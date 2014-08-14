@@ -21,6 +21,20 @@ public class Organization extends NodeItem<IOrganization> implements IOrganizati
 
 	private IUser leader;
 
+	@Override
+	@ManyToOne(targetEntity=Organization.class)
+	@JoinColumn(name="parentId")
+	public IOrganization getParent()
+	{
+		return super.getParent();
+	}
+
+	@Override
+	public void setParent(IOrganization parent)
+	{
+		super.setParent(parent);
+	}
+
 	@ManyToOne(targetEntity =User.class)
 	@JoinColumn(name="leaderId")
 	public IUser getLeader()
@@ -31,11 +45,6 @@ public class Organization extends NodeItem<IOrganization> implements IOrganizati
 	public void setLeader(IUser leader)
 	{
 		this.leader=leader;
-		
 	}
 
-
-
-
-	
 }
