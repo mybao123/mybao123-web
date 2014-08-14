@@ -1,6 +1,7 @@
 package com.mybao123.model;
 
 import javax.persistence.Column;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 
@@ -17,9 +18,10 @@ public abstract class NodeItem<T extends IItem> extends Item implements INode<T 
 	private int NLevel;
 	private String fullPath;
 	
+	@ManyToOne
+	@JoinColumn(name="parentId")
 	public T getParent()
 	{
-	
 		return parent;
 	}
 

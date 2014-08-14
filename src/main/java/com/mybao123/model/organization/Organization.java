@@ -4,6 +4,9 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
+
 import com.mybao123.model.NodeItem;
 import com.mybao123.model.user.IUser;
 import com.mybao123.model.user.User;
@@ -12,7 +15,7 @@ import com.mybao123.model.user.User;
  * @author Owen
  *
  */
-@Entity(name="t_Org")
+@Entity(name="t_org")
 public class Organization extends NodeItem<IOrganization> implements IOrganization
 {
 
@@ -31,19 +34,7 @@ public class Organization extends NodeItem<IOrganization> implements IOrganizati
 		
 	}
 
-	@Override
-	@ManyToOne(targetEntity = Organization.class )
-	@JoinColumn(name="orgId")
-	public IOrganization getParent()
-	{
-		return super.getParent();
-	}
 
-	@Override
-	public void setParent(IOrganization parent)
-	{
-		super.setParent(parent);
-	}
 
 
 	
