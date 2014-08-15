@@ -8,7 +8,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.mybao123.model.Item;
-import com.mybao123.model.organization.IOrganization;
 import com.mybao123.model.organization.Organization;
 /**
  * ”√ªß¿‡
@@ -16,14 +15,19 @@ import com.mybao123.model.organization.Organization;
  *
  */
 @Entity(name = "t_user")
-public class User extends Item implements IUser
+public class User extends Item 
 {
+	@Enumerated(EnumType.STRING)
 	private  UserNameTypeEnum  nameType;
+	@Column
 	private String psd;
-	private IOrganization org;
+	@ManyToOne(targetEntity =Organization.class)
+	@JoinColumn(name="orgId")
+	private Organization org;
+	@Column
 	private boolean used;
 	
-	@Enumerated(EnumType.STRING)
+	
 	public UserNameTypeEnum getNameType()
 	{
 		return this.nameType;
@@ -34,7 +38,7 @@ public class User extends Item implements IUser
 		this.nameType =nameType;
 	}
 
-	@Column
+	
 	public String getPsd()
 	{
 		return this.psd;
@@ -45,20 +49,19 @@ public class User extends Item implements IUser
 		this.psd=psd;
 	}
 
-	@ManyToOne(targetEntity =Organization.class)
-	@JoinColumn(name="orgId")
-	public IOrganization getOrg()
+	
+	public Organization getOrg()
 	{
 		return this.org;
 	}
 
-	public void setOrg(IOrganization org)
+	public void setOrg(Organization org)
 	{
 		this.org=org;
 		
 	}
 
-	@Column
+	
 	public boolean getUsed()
 	{
 		return this.used;

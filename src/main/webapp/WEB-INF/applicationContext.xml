@@ -51,7 +51,7 @@
         </property>  
         <property name="packagesToScan">
     		<list>
-        		<value>com.mybao123.model</value>
+        		<value>com.mybao123.*</value>
     		</list>
 		</property>
     </bean>  

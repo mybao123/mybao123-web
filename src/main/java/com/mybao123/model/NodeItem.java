@@ -14,12 +14,15 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class NodeItem<T extends IItem> extends Item implements INode<T >
 {
+	@ManyToOne()
+	@JoinColumn(name="parentId")
 	private T parent;
+	@Column(name="nLevel")
 	private int NLevel;
+	@Column(name="fullPath")
 	private String fullPath;
 	
-	@ManyToOne
-	@JoinColumn(name="parentId")
+	
 	public T getParent()
 	{
 		return parent;
@@ -30,7 +33,7 @@ public abstract class NodeItem<T extends IItem> extends Item implements INode<T 
 		this.parent=parent;
 	}
 
-	@Column(name="nLevel")
+	
 	public int getNLevel()
 	{
 		return this.NLevel;
@@ -41,7 +44,7 @@ public abstract class NodeItem<T extends IItem> extends Item implements INode<T 
 		this.NLevel=nLevel;
 	}
 
-	@Column(name="fullPath")
+	
 	public String getFullPath()
 	{
 		return this.fullPath;
