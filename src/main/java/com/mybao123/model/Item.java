@@ -13,14 +13,15 @@ import javax.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class Item implements IItem
 {
-	
-	private long id;
-	
-	private String name;
-	private String description;
-	
 	@Id
 	@GeneratedValue
+	private long id;
+	@Column
+	private String name;
+	@Column
+	private String description;
+	
+	
 	public long getId()
 	{
 		return id;
@@ -30,7 +31,7 @@ public abstract class Item implements IItem
 	{
 		this.id=id;
 	}
-	@Column
+	
 	public String getName()
 	{
 		return this.name;
@@ -46,7 +47,7 @@ public abstract class Item implements IItem
 	{
 		return this.description;
 	}
-	@Column
+	
 	public void setDescription(String description)
 	{
 		this.description=description;

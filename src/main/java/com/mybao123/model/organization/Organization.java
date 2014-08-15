@@ -1,14 +1,15 @@
 package com.mybao123.model.organization;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-import org.hibernate.annotations.LazyToOne;
-import org.hibernate.annotations.LazyToOneOption;
+
+
 
 import com.mybao123.model.NodeItem;
-import com.mybao123.model.user.IUser;
 import com.mybao123.model.user.User;
 /**
  * 组织机构定义
@@ -16,33 +17,31 @@ import com.mybao123.model.user.User;
  *
  */
 @Entity(name="t_org")
-public class Organization extends NodeItem<IOrganization> implements IOrganization
+public class Organization extends NodeItem<Organization> 
 {
-
-	private IUser leader;
-
-	@Override
-	@ManyToOne(targetEntity=Organization.class)
-	@JoinColumn(name="parentId")
-	public IOrganization getParent()
-	{
-		return super.getParent();
-	}
-
-	@Override
-	public void setParent(IOrganization parent)
-	{
-		super.setParent(parent);
-	}
-
-	@ManyToOne(targetEntity =User.class)
+	@ManyToOne(targetEntity =User.class,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.LAZY )
 	@JoinColumn(name="leaderId")
-	public IUser getLeader()
+	private User leader;
+
+//	@ManyToOne
+//	@JoinColumn(name="parentId")
+//	public Organization getParent()
+//	{
+//		return super.getParent();
+//	}
+//
+//	public void setParent(Organization parent)
+//	{
+//		super.setParent(parent);
+//	}
+
+	
+	public User getLeader()
 	{
 		return this.leader;
 	}
 
-	public void setLeader(IUser leader)
+	public void setLeader(User leader)
 	{
 		this.leader=leader;
 	}
