@@ -19,23 +19,10 @@ import com.mybao123.model.user.User;
 @Entity(name="t_org")
 public class Organization extends NodeItem<Organization> 
 {
-	@ManyToOne(targetEntity =User.class,cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH},fetch = FetchType.LAZY )
+	@ManyToOne(fetch = FetchType.LAZY )
 	@JoinColumn(name="leaderId")
 	private User leader;
 
-//	@ManyToOne
-//	@JoinColumn(name="parentId")
-//	public Organization getParent()
-//	{
-//		return super.getParent();
-//	}
-//
-//	public void setParent(Organization parent)
-//	{
-//		super.setParent(parent);
-//	}
-
-	
 	public User getLeader()
 	{
 		return this.leader;
