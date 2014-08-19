@@ -1,51 +1,24 @@
 package com.mybao123.service;
-
-import java.util.List;
-
-import org.hibernate.Criteria;  
-import org.hibernate.criterion.Projections;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
 import org.springframework.transaction.annotation.Transactional; 
 
-import com.mybao123.dao.organization.OrganizationDao;
-import com.mybao123.dao.user.UserDao;
-import com.mybao123.model.organization.Organization;
+import com.mybao123.dao.CommonDao; 
 import com.mybao123.model.user.User;
 import com.mybao123.model.user.UserNameTypeEnum;
 
 @Service
 public class IndexService extends BaseService
-{
+{ 
+	
 	@Autowired
-	private UserDao userDao;
-
-	@Autowired
-	private OrganizationDao orgDao; 
+	private CommonDao<User> baseDao;
+	 
 
 	@Transactional(readOnly=true)
 	public void addUser(String name, String number) 
-	{ 
-		int page =1;
-		int pagesize =20; 
-
-		//Pager pager = null;
-		Criteria criteria =orgDao.getSession().createCriteria(Organization.class);
-		int rowcount = (Integer)criteria.setProjection(Projections.rowCount()).uniqueResult();
-		
-		criteria.setProjection(null);
-		
-		//criteria.addOrder(Order.asc("id"));
-		criteria.setFirstResult((page-1)*pagesize);
-		criteria.setMaxResults(pagesize);
-		Object obj = criteria.uniqueResult(); 
-		List result=criteria.list();
-		
-		
-		Criteria criterisa = orgDao.getSession().createCriteria(Organization.class);
-		Organization org= (Organization)criterisa.setFirstResult(1).setMaxResults(10).list().get(1);
-		//Organization orgs=(Organization)orgDao.getSession().load(Organization.class,3);
- 
+	{  
 		User u2=new User();
 		 
 		u2.setName("owen");
@@ -55,10 +28,8 @@ public class IndexService extends BaseService
 		u2.setUsed(true); 
 		 
 
-		User u=(User)userDao.load(7);
 		
-		String s7=u.getName(); 
-		userDao.getSession().saveOrUpdate(u); 
+		baseDao.saveOrUpdate(u2); 
 		//userDao.getSession().save(u2);
 		
 
