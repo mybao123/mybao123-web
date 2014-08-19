@@ -5,5 +5,5 @@ import com.mybao123.model.task.Task;
 
 public class TaskDao extends BaseDao<Task>
 {
-
+	
 }
