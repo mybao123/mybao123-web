@@ -1,4 +1,5 @@
-package com.mybao123.controller;
+package com.mybao123.controller; 
+  
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +29,7 @@ public class IndexController {
 				
 			User u=new User();
 
-			u.setName("’–…Ã“¯––");
+			u.setName("12345");
 
 			
 			String json=JSONObject.fromObject(u).toString();
@@ -41,4 +42,4 @@ public class IndexController {
 		}
 		
 	}	
-}
+} 

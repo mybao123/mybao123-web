@@ -6,7 +6,7 @@ import com.mybao123.dao.BaseDao;
 import com.mybao123.model.organization.Organization;
 
 @Repository
-public class OrganizationDao extends BaseDao
+public class OrganizationDao extends BaseDao<Organization>
 {
 	
 }
