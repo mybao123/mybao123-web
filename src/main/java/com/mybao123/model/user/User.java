@@ -2,7 +2,6 @@ package com.mybao123.model.user;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -17,11 +16,12 @@ import com.mybao123.model.organization.Organization;
 @Entity(name = "t_user")
 public class User extends Item 
 {
-	@Enumerated(EnumType.STRING)
+	@Column(name = "nameType")
+	@Enumerated
 	private  UserNameTypeEnum  nameType;
 	@Column
 	private String psd;
-	@ManyToOne(targetEntity =Organization.class)
+	@ManyToOne(optional=true)
 	@JoinColumn(name="orgId")
 	private Organization org;
 	@Column

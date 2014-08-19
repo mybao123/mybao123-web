@@ -3,11 +3,28 @@
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
 <web-app>
-  <display-name>mybao</display-name>
-  <context-param>
+  	<display-name>mybao123</display-name>
+  
+  	
+  
+  	<context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>/WEB-INF/applicationContext.xml</param-value>
-    </context-param>
+  	</context-param>
+    
+    <filter>
+		<filter-name>OpenSessionInViewFilter</filter-name>
+    	<filter-class>org.springframework.orm.hibernate4.support.OpenSessionInViewFilter</filter-class>
+    	<init-param>
+    		<param-name>sessionFactoryBeanName</param-name>
+        	<param-value>sessionFactory</param-value>
+    	</init-param>
+  	</filter>
+     
+    <filter-mapping>  
+        <filter-name>OpenSessionInViewFilter</filter-name>  
+        <url-pattern>*.do</url-pattern>  
+	</filter-mapping>
     
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
