@@ -29,7 +29,7 @@ public class IndexController {
 				
 			User u=new User();
 
-			u.setName("��������");
+			u.setName("12345");
 
 			
 			String json=JSONObject.fromObject(u).toString();
