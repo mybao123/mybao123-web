@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service; 
 import org.springframework.transaction.annotation.Transactional; 
 
-import com.mybao123.dao.CommonDao; 
+import com.mybao123.dao.BaseDao; 
 import com.mybao123.model.user.User;
 import com.mybao123.model.user.UserNameTypeEnum;
 
@@ -13,7 +13,7 @@ public class IndexService extends BaseService
 { 
 	
 	@Autowired
-	private CommonDao<User> baseDao;
+	private BaseDao<User> baseDao;
 	 
 
 	@Transactional(readOnly=true)
@@ -27,7 +27,8 @@ public class IndexService extends BaseService
 		u2.setPsd("xyyyyxssss");
 		u2.setUsed(true); 
 		 
-
+        User u = (User)baseDao.loadById(7);
+        u.setName("23");
 		
 		baseDao.saveOrUpdate(u2); 
 		//userDao.getSession().save(u2);
