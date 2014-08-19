@@ -2,7 +2,11 @@ package com.mybao123.dao;
 
 import java.lang.reflect.ParameterizedType; 
 import java.util.List; 
+
+import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Projections;
 import org.springframework.beans.factory.annotation.Autowired; 
 import org.springframework.stereotype.Repository;
 
@@ -78,12 +82,31 @@ public class BaseDao<T> {
     } 
     
     /**
-     * @description 查找列表对象
+     * 查找列表对象
+     */ 
+    @SuppressWarnings("unchecked")  
+    protected List<T> loadList(String hql) {    
+        Query query = sessionFactory.getCurrentSession().createQuery(hql);   
+        return query.list();  
+    } 
+    
+    /**
+     * @description 查找列表对象,分页对象进行分页
      * @return
      */
     @SuppressWarnings("unchecked")
-    public  List<T> loadList() {
-        return sessionFactory.getCurrentSession().createCriteria(clazz).list();
+    public  List<T> loadListWithPage(String hql,Page page) { 
+    	
+    	 generatePageTotalCount(hql,  page);   
+         Query query = sessionFactory.getCurrentSession().createQuery(hql);   
+         query.setFirstResult(page.getCurPage());  
+         query.setMaxResults(page.getPageSize());  
+         return query.list();  
     }
-    
+    private void generatePageTotalCount(String originHql,Page page) {  
+        String generatedCountHql = "select count(*) " + originHql;  
+        Query countQuery = sessionFactory.getCurrentSession().createQuery(generatedCountHql);   
+        int totalCount = ((Long) countQuery.uniqueResult()).intValue();  
+        page.setTotalRow(totalCount);  
+    }  
 }
