@@ -20,7 +20,7 @@
     <context:annotation-config />
 
     <!-- 扫描annotation类，过滤Service，Repository -->
-    <context:component-scan base-package="com.mybao" >
+    <context:component-scan base-package="com.mybao123" >
     	<context:include-filter type="annotation" expression="org.springframework.stereotype.Service" />
         <context:include-filter type="annotation" expression="org.springframework.stereotype.Repository" />
     </context:component-scan>

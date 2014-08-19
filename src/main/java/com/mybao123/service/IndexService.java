@@ -24,10 +24,9 @@ public class IndexService extends BaseService
 	@Autowired
 	private SessionFactory sessionFactory;
 	
-	@Transactional(readOnly=true)
+	@Transactional
 	public void addUser(String name, String number)
 	{
-		
 		
 		User u2=new User();
 		

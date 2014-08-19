@@ -19,11 +19,14 @@ public class User extends Item
 	@Column(name = "nameType")
 	@Enumerated
 	private  UserNameTypeEnum  nameType;
+	
 	@Column
 	private String psd;
+	
 	@ManyToOne(optional=true)
 	@JoinColumn(name="orgId")
 	private Organization org;
+	
 	@Column
 	private boolean used;
 	

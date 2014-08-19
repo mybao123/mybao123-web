@@ -6,18 +6,9 @@ package com.mybao123.model;
  * @author Owen
  * 
  */
-public interface IItem
+public interface IItem extends IPK
 {
-	/**
-	 * 获取主鍵
-	 * @return
-	 */
-	long getId();
-	/**
-	 * 设置主键
-	 * @param id
-	 */
-	void setId(long id);
+	
 	/**
 	 * 获取名称
 	 * @return
