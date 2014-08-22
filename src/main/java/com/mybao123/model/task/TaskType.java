@@ -14,6 +14,9 @@ import com.mybao123.model.organization.Organization;
 public class TaskType extends Item
 {
 	
+	
+	
+	
 	/**
 	 * 所属组织机构
 	 */
