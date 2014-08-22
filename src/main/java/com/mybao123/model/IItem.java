@@ -1,7 +1,7 @@
 package com.mybao123.model;
 
 /**
- * 数据持久化基础接口
+ * 鍩虹鏁版嵁鎺ュ彛
  * 
  * @author Owen
  * 
@@ -10,22 +10,22 @@ public interface IItem extends IPK
 {
 	
 	/**
-	 * 获取名称
+	 *鑾峰彇 鍚嶇О
 	 * @return
 	 */
 	String getName();
 	/**
-	 * 设置名称
+	 *璁剧疆鍚嶇О
 	 * @param name
 	 */
 	void setName(String name);
 	/**
-	 * 获取描述
+	 *鑾峰彇鎻忚堪
 	 * @return
 	 */
 	String getDescription();
 	/**
-	 * 设置描述
+	 * 璁剧疆鎻忚堪
 	 * @param description
 	 */
 	void setDescription(String description);

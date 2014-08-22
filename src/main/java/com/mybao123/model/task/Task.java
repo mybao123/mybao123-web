@@ -31,6 +31,8 @@ public class Task implements IPK
 	@JoinColumn(name="userId")
 	private User user;
 
+	
+	
 	@ManyToOne(optional=true)
 	@JoinColumn(name="orgId")
 	private Organization org;
@@ -47,6 +49,8 @@ public class Task implements IPK
 	@Column
 	private String description;
 
+	@Column
+	private Date createTime;
 	/**
 	 * 获取主键
 	 */
@@ -165,5 +169,21 @@ public class Task implements IPK
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+	/**
+	 * 获取创建时间
+	 * @return
+	 */
+	public Date getCreateTime()
+	{
+		return createTime;
+	}
+	/**
+	 * 设置创建时间
+	 * @param createTime
+	 */
+	public void setCreateTime(Date createTime)
+	{
+		this.createTime = createTime;
 	}
 }

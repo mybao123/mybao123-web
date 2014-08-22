@@ -1,5 +1,7 @@
 package com.mybao123.controller; 
   
+import javax.servlet.http.HttpServletRequest;
+
 import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,12 @@ public class IndexController {
 	private IndexService indexService;
 	
 	@RequestMapping(value="loadData.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String LoadData() throws Exception
+	public @ResponseBody String LoadData(HttpServletRequest req) throws Exception
 	{
 		try
 		{
+			
+			Object o=req.getAttribute("name");
 			
 			if(indexService != null){
 				indexService.addUser("lrj", "abc");
