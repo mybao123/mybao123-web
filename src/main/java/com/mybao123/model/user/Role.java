@@ -9,5 +9,5 @@ import com.mybao123.model.Item;
  */
 public class Role extends Item
 {
-
+	
 }
