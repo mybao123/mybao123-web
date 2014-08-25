@@ -28,7 +28,7 @@ public class TaskType extends Item
 	 * 分值
 	 */
 	@Column
-	private int value;
+	private double value;
 	
 	
 }
