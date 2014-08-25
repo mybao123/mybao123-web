@@ -7,7 +7,12 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-
+/**
+ * dao基础定义
+ * @author Owen
+ *
+ * @param <T>
+ */
 public  abstract class BaseDao<T> { 
 	
 	/**
