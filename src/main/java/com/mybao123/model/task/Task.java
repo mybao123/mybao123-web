@@ -31,6 +31,9 @@ public class Task implements IPK
 	@JoinColumn(name="userId")
 	private User user;
 
+	@ManyToOne(optional=true)
+	@JoinColumn(name="taskTypeId")
+	private TaskType taskType;
 	
 	
 	@ManyToOne(optional=true)
@@ -84,6 +87,23 @@ public class Task implements IPK
 		this.user = user;
 	}
 
+	/**
+	 * 获取用户类型
+	 * @return
+	 */
+	public TaskType getTaskType()
+	{
+		return taskType;
+	}
+
+	/**
+	 * 设置类型
+	 * @param tskType
+	 */
+	public void settaskType(TaskType taskType)
+	{
+		this.taskType = taskType;
+	}
 	/**
 	 * 获取组织机构
 	 * @return

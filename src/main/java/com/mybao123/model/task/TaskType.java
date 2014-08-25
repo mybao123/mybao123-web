@@ -1,6 +1,7 @@
 package com.mybao123.model.task;
 
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
@@ -11,12 +12,9 @@ import com.mybao123.model.organization.Organization;
  * @author Owen
  *
  */
+@Entity(name="t_tasktype")
 public class TaskType extends Item
-{
-	
-	
-	
-	
+{ 
 	/**
 	 * 所属组织机构
 	 */

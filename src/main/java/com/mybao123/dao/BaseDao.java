@@ -51,7 +51,7 @@ public  abstract class BaseDao<T> {
      * @param c 鍒犻櫎鐨勫璞＄被鍨�
      * @param id 鍒犻櫎鐨勫璞＄殑涓婚敭
      */
-    public void delete(int id){
+    public void delete(long id){
         T obj = loadById(id);
         sessionFactory.getCurrentSession().delete(obj);
     }

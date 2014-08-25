@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.mybao123.dao.task.TaskDao;
+import com.mybao123.dao.task.TaskTypeDao;
 import com.mybao123.model.task.Task;
+import com.mybao123.model.task.TaskType;
 
 @Service
 public class TaskService
@@ -13,9 +15,37 @@ public class TaskService
 	@Autowired
 	private TaskDao taskDao;
 	
+	@Autowired
+	private TaskTypeDao taskTypeDao;
+	
 	@Transactional
 	public void saveTask(Task task)
 	{
 		taskDao.saveOrUpdate(task);
 	}
+
+	@Transactional
+	public void delete(Task task)
+	{
+		taskDao.delete(task);
+	}
+	@Transactional
+	public void deleteById(long id)
+	{
+		taskDao.delete(id);
+	}
+	@Transactional
+	public Task loadById(long id)
+	{
+		Task task = new Task();
+		task=taskDao.loadById(id);
+		return task;
+	}
+	
+	@Transactional
+	public void saveTaskType(TaskType taskType)
+	{
+		taskTypeDao.saveOrUpdate(taskType);
+	}
+	 
 }
