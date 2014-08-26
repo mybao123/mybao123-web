@@ -2,7 +2,7 @@ package com.mybao123.controller;
 
 import java.io.File;
 import java.math.BigInteger;
-import java.security.interfaces.RSAPrivateKey;
+import java.security.interfaces.RSAPrivateKey; 
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +30,9 @@ public class UserController
 {
 	@Autowired
 	private UserService userService;
+	
+	
+	
 	
 	/**
 	 * 用户登录
@@ -168,12 +171,13 @@ public class UserController
 	 */
 	private String DecryptUserPwd(String pwd)
 	{
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		try
 		{
-			String rootPath=getClass().getResource("/").getFile().toString(); 
+			String rootPath=request.getSession().getServletContext().getRealPath("/")+"private.key";
 			RSAUtils rsa = new RSAUtils(); 
 			byte[] en_result = new BigInteger(pwd, 16).toByteArray();
-			RSAPrivateKey prk =rsa.getPrivateKey(new File(rootPath+"/private.key"));//获取私钥
+			RSAPrivateKey prk =rsa.getPrivateKey(new File(rootPath));//获取私钥
 			byte[] de_result = RSAUtils.decrypt(prk,en_result);				
 			String dpwd=new String(de_result);
 			return dpwd;

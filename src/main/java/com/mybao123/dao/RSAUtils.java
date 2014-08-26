@@ -2,16 +2,16 @@ package com.mybao123.dao;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.security.KeyFactory;
-import java.security.PrivateKey;
-import java.security.interfaces.RSAPrivateKey;
+import java.io.FileInputStream; 
+import java.io.ObjectInputStream; 
+import java.security.KeyFactory; 
+import java.security.PrivateKey; 
+import java.security.interfaces.RSAPrivateKey; 
 import java.security.spec.PKCS8EncodedKeySpec; 
 
-import javax.crypto.Cipher;
+import javax.crypto.Cipher; 
 
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Repository; 
  
 
 /** 
@@ -21,8 +21,7 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public  class RSAUtils{  
-	 
+public  class RSAUtils{   
 	/** 
      * 私钥 
      */  
@@ -34,7 +33,7 @@ public  class RSAUtils{
     public RSAPrivateKey  getPrivateKey(File file) {  
         getKey(file);  
         return privateKey;
-    } 
+    }   
     private void getKey(File file) {  
     	FileInputStream fis;  
         try {  

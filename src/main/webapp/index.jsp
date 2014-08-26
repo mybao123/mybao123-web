@@ -13,6 +13,9 @@
 <h2>你好！</h2>
  
  <input id="txtSerialNo" class="easyui-validatebox" data-options="required:false" disabled="disabled"/>
+  <input id="txtuserName" class="easyui-validatebox" data-options="required:false" />
+   <input id="txtpassWord" class="easyui-validatebox" data-options="required:false" />
+    <input id="txtpassWord1" class="easyui-validatebox" data-options="required:false" />
  
  <a id="btnLoad" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="loadAction()">保存</a>
  
