@@ -89,7 +89,8 @@ public  abstract class BaseDao<T> {
      */ 
     @SuppressWarnings("unchecked")  
     public List<T> loadList(String hql) {    
-        Query query = sessionFactory.getCurrentSession().createQuery(hql);   
+    	//System.out.print(hql);
+        Query query = sessionFactory.getCurrentSession().createSQLQuery(hql);   
         return query.list();  
     } 
     

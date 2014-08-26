@@ -30,19 +30,16 @@ public class UserService
 		return user;
 	}
 	@Transactional
-	public User loadByNameAndPwd(String uName,String pwd)
-	{
-		User user = new User();
-		String hql = String.format(" from User where name ='{0}' and psd ='{1}'", uName,pwd);
-		List<User> userList=userDao.loadList(hql);
-		if(userList.size()>0)
+	public int existUser(String uName,String pwd)
+	{  
+		try
 		{
-			user=userList.get(0);
-			return user;
+			String hql =" select Id from t_user where used= true and  name ='"+uName+"' and psd ='"+pwd+"'";
+			List<User> userList=userDao.loadList(hql); 
+			return userList.size();
 		}
-		else
-		{
-			return null;
+		catch(Exception ex){ 
+			return 0;
 		}
-	}
+	} 
 }

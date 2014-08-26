@@ -7,6 +7,9 @@
 	<script src="script/base/easyui-lang-zh_CN.js" type="text/javascript"></script>
 	<script src="Script/base/jquery.artDialog.js" type="text/javascript"></script>
 	<script src="script/base/json2.js" type="text/javascript"></script>
+	<script src="script/base/Barrett.js" type="text/javascript"></script>
+	<script src="script/base/BigInt.js" type="text/javascript"></script>
+	<script src="script/base/RSA.js" type="text/javascript"></script>
 	<script src="script/index.js" type="text/javascript"></script>
 </head>
 <body>

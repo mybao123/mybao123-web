@@ -1,13 +1,10 @@
 package com.mybao123.dao;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream; 
-import java.io.ObjectInputStream; 
-import java.security.KeyFactory; 
-import java.security.PrivateKey; 
-import java.security.interfaces.RSAPrivateKey; 
-import java.security.spec.PKCS8EncodedKeySpec; 
+import java.io.ByteArrayOutputStream; 
+import java.math.BigInteger;
+import java.security.KeyFactory;
+import java.security.PrivateKey;  
+import java.security.spec.RSAPrivateKeySpec;
 
 import javax.crypto.Cipher; 
 
@@ -22,37 +19,23 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public  class RSAUtils{   
-	/** 
-     * 私钥 
-     */  
-    private static  RSAPrivateKey privateKey; 
-	/** 
-     * 从数据库私钥 
-     * @param  
-     */  
-    public RSAPrivateKey  getPrivateKey(File file) {  
-        getKey(file);  
-        return privateKey;
-    }   
-    private void getKey(File file) {  
-    	FileInputStream fis;  
-        try {  
-        	//读取数据  
-            fis = new FileInputStream(file);  
-            ObjectInputStream ois = new ObjectInputStream(fis);  
-            byte [] keybyte = (byte[]) ois.readObject();  
-            //关闭资源  
-            ois.close();   
-            //默认编码  
-            KeyFactory keyfactory = KeyFactory.getInstance("RSA");  
-            //得到私钥   
-            PKCS8EncodedKeySpec pkcs8eks = new PKCS8EncodedKeySpec(keybyte);  
-            privateKey = (RSAPrivateKey) keyfactory.generatePrivate(pkcs8eks);   
-            
-        } catch (Exception ex) {  
-        	privateKey = null;
-        }         
-    }  
+	
+	public PrivateKey getPrivateKey(String modulus,String privateExponent) throws Exception {  
+		  
+        BigInteger m = new BigInteger(modulus);  
+
+        BigInteger e = new BigInteger(privateExponent);  
+
+        RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(m,e);  
+
+        KeyFactory keyFactory = KeyFactory.getInstance("RSA");  
+
+        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);  
+
+        return privateKey;  
+
+  }  
+	
     /** 
      * 数据RSA解密 
      * @param enc 密文 

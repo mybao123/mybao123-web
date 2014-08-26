@@ -16,12 +16,11 @@ function loadAction(){
     var key  = new RSAKeyPair(empoent, '', module); //10001 => e的十六进制
     
     password = encryptedString(key, password);
-    
-    alert("加密之后的密码："+password);
+     
     var username =$('#txtuserName').val();
     var user ={};
     user.name=username;
-    user.number = password;
+    user.psd = password;
      
 	$.ajax({
        url: "User/userLogin.do",
@@ -31,9 +30,9 @@ function loadAction(){
         data:user,
         //contentType: "application/x-www-form-urlencoded; charset=utf-8", 
         success: function (req) {  
-        	$('#txtuserName').val(req.name) ; 
-        	$('#txtpassWord').val(password);
-        	$('#txtpassWord1').val(req.number);
+        	$('#txtuserName').val(Id) ; 
+        	$('#txtpassWord').val(IsSuceed);
+        	$('#txtpassWord1').val(Message);
         }
     });
 } 
