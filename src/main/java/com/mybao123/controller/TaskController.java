@@ -1,13 +1,21 @@
 package com.mybao123.controller;
 
-import net.sf.json.JSONObject;
+import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import net.sf.json.JSONObject;
+ 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.mybao123.dao.Page;
 import com.mybao123.model.task.Task;
+import com.mybao123.model.user.User;
 import com.mybao123.service.TaskService;
 
 @Controller
@@ -121,6 +129,93 @@ public class TaskController
 			object.accumulate("Message", ex.getMessage());
 			String retStr = JSONObject.fromObject(object).toString(); 
 			return retStr;
+		}
+	}
+	@RequestMapping(value="loadTaskListWithPage.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String loadListWithPage() throws Exception
+	{
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+		JSONObject object = new JSONObject();   
+		Page page = new Page();
+		int pageIndex = 1;
+		int pageSize =20; 
+		int totalCount =0;
+		String ObjectStr="[]";
+		String pgindex = request.getParameter("page");
+		String rows=request.getParameter("rows");
+		if(pgindex.length()>0)
+		{
+			pageIndex =  Integer.parseInt(pgindex);
+		}
+		if(rows.length()>0)
+		{
+			pageSize = Integer.parseInt(rows);
+		}
+		page.setCurPage(pageIndex);
+		page.setPageSize(pageSize);
+		User user = (User)request.getSession().getAttribute("users");
+		if(user==null)
+		{
+			object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
+		}
+		try
+		{ 
+			List<Task> taskList =taskService.loadListWithPage(page,user.getId());
+			if(taskList.size()>0)
+			{
+				totalCount= page.getTotalRow();
+				ObjectStr =  JSONObject.fromObject(taskList).toString(); 
+			}
+		 	object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
+		}
+		catch(Exception ex)
+		{
+			object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
+		}
+	}
+	@RequestMapping(value="loadTaskList.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String loadList() throws Exception
+	{
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
+		JSONObject object = new JSONObject();   
+		int totalCount =0;
+		String ObjectStr="[]";
+		User user = (User)request.getSession().getAttribute("users");
+		if(user==null)
+		{
+			object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
+		}
+		try
+		{ 
+			List<Task> taskList =taskService.loadList(user.getId());
+			if(taskList.size()>0)
+			{
+				totalCount= taskList.size();
+				ObjectStr =  JSONObject.fromObject(taskList).toString(); 
+			}
+		 	object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
+		}
+		catch(Exception ex)
+		{
+			object.accumulate("total ", totalCount);
+			object.accumulate("rows", ObjectStr); 
+			String retStr = JSONObject.fromObject(object).toString(); 
+			return retStr; 
 		}
 	}
 }

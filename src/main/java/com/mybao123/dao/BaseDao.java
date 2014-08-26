@@ -88,7 +88,7 @@ public  abstract class BaseDao<T> {
      * 查找列表对象
      */ 
     @SuppressWarnings("unchecked")  
-    protected List<T> loadList(String hql) {    
+    public List<T> loadList(String hql) {    
         Query query = sessionFactory.getCurrentSession().createQuery(hql);   
         return query.list();  
     } 
@@ -98,7 +98,7 @@ public  abstract class BaseDao<T> {
      * @return
      */
     @SuppressWarnings("unchecked")
-    public  List<T> loadListWithPage(String hql,String totalHql,Page page) { 
+    public  List<T> loadListWithPage(String hql,Page page) { 
     	
     	 generatePageTotalCount(hql,  page);   
          Query query = sessionFactory.getCurrentSession().createQuery(hql);   

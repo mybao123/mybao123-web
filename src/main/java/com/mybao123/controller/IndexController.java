@@ -25,8 +25,6 @@ public class IndexController {
 		try
 		{
 			
-			Object o=req.getAttribute("name");
-			
 			if(indexService != null){
 				indexService.addUser("lrj", "abc");
 			}

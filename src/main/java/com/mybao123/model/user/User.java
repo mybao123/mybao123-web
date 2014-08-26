@@ -1,5 +1,7 @@
 package com.mybao123.model.user;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
@@ -9,7 +11,7 @@ import javax.persistence.ManyToOne;
 import com.mybao123.model.Item;
 import com.mybao123.model.organization.Organization;
 /**
- * ÓÃ»§Àà
+ * ï¿½Ã»ï¿½ï¿½ï¿½
  * @author Owen
  *
  */
@@ -30,6 +32,14 @@ public class User extends Item
 	@Column
 	private boolean used;
 	
+	@Column
+	private String Sex;
+	
+	@Column
+	private String nickName;
+	
+	@Column
+	private Date birth;
 	
 	public UserNameTypeEnum getNameType()
 	{
@@ -41,6 +51,36 @@ public class User extends Item
 		this.nameType =nameType;
 	}
 
+	public Date getbirth()
+	{
+		return this.birth;
+	}
+
+	public void setbirth(Date birth)
+	{
+		this.birth=birth;
+	}
+	
+	public String getnickName()
+	{
+		return this.nickName;
+	}
+
+	public void setnickName(String nickName)
+	{
+		this.nickName=nickName;
+	}
+
+
+	public String getSex()
+	{
+		return this.Sex;
+	}
+
+	public void setSex(String Sex)
+	{
+		this.Sex=Sex;
+	}
 	
 	public String getPsd()
 	{
@@ -52,6 +92,7 @@ public class User extends Item
 		this.psd=psd;
 	}
 
+	
 	
 	public Organization getOrg()
 	{
