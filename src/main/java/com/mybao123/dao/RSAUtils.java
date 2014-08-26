@@ -20,21 +20,25 @@ import org.springframework.stereotype.Repository;
 @Repository
 public  class RSAUtils{   
 	
-	public PrivateKey getPrivateKey(String modulus,String privateExponent) throws Exception {  
-		  
-        BigInteger m = new BigInteger(modulus);  
-
-        BigInteger e = new BigInteger(privateExponent);  
-
-        RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(m,e);  
-
-        KeyFactory keyFactory = KeyFactory.getInstance("RSA");  
-
-        PrivateKey privateKey = keyFactory.generatePrivate(keySpec);  
-
-        return privateKey;  
-
-  }  
+	
+	
+	public PrivateKey getPrivateKey(String modulus,String privateExponent) throws Exception
+	{  
+		PrivateKey privateKey= null;
+		try
+		{
+	        BigInteger m = new BigInteger(modulus);  
+	        BigInteger e = new BigInteger(privateExponent);  
+	        RSAPrivateKeySpec keySpec = new RSAPrivateKeySpec(m,e);  
+	        KeyFactory keyFactory = KeyFactory.getInstance("RSA");  
+	        privateKey = keyFactory.generatePrivate(keySpec);  
+	        return privateKey; 
+		}
+		catch(Exception ex)
+		{
+			return privateKey;
+		}
+	}  
 	
     /** 
      * 数据RSA解密 
