@@ -1,9 +1,6 @@
 package com.mybao123.model.task;
 
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-
 import com.mybao123.model.Item;
 
 /**

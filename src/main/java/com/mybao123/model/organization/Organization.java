@@ -1,6 +1,5 @@
 package com.mybao123.model.organization;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
@@ -12,7 +11,7 @@ import javax.persistence.ManyToOne;
 import com.mybao123.model.NodeItem;
 import com.mybao123.model.user.User;
 /**
- * ×éÖ¯»ú¹¹¶¨Òå
+ * ï¿½ï¿½Ö¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
  * @author Owen
  *
  */
