@@ -106,8 +106,21 @@ public class UserController
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		JSONObject object = new JSONObject();  
 		long uId=0; 
-		boolean IsSuceed= false; 
+		boolean isSuceed= false; 
 		String message="";
+		
+		
+		
+		if(1==1)
+		{
+			isSuceed=false;
+			message="";
+		}
+		
+		if (2==2){
+			
+		}
+		
 		try
 		{ 
 			if(user==null)
@@ -131,22 +144,24 @@ public class UserController
 				}
 				else
 				{
+					//判断是否存在！
+					
 					user.setPsd(pwd);
 					userService.saveUser(user);
 					uId = user.getId();
 					if(uId>0)
 					{
-						IsSuceed= true;
+						isSuceed= true;
 						message="注册成功";
 						HttpSession  session = request.getSession(); 
 						session.setAttribute("user", user);
-						session.setAttribute("username", user.getName());
-						session.setAttribute("password", user.getPsd());
+//						session.setAttribute("username", user.getName());
+//						session.setAttribute("password", user.getPsd());
 					}
 				}
 			}
 			object.accumulate("Id", uId);
-			object.accumulate("IsSuceed", IsSuceed);
+			object.accumulate("IsSuceed", isSuceed);
 			object.accumulate("Message", message);
 			String retStr = JSONObject.fromObject(object).toString(); 
 			return retStr;
@@ -156,6 +171,7 @@ public class UserController
 			object.accumulate("Id", 0);
 			object.accumulate("IsSuceed", false);
 			object.accumulate("Message", ex.getMessage());
+			
 			String retStr = JSONObject.fromObject(object).toString(); 
 			return retStr;
 		} 
