@@ -6,17 +6,21 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
  
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+ 
 
-import com.mybao123.dao.Page;
+
 import com.mybao123.model.task.Task;
 import com.mybao123.model.user.User;
 import com.mybao123.service.TaskService;
+import com.mybao123.util.PageInfo;
 
 @Controller
 @RequestMapping("/Task")
@@ -136,7 +140,7 @@ public class TaskController
 	{
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
 		JSONObject object = new JSONObject();   
-		Page page = new Page();
+		PageInfo page = new PageInfo();
 		int pageIndex = 1;
 		int pageSize =20; 
 		int totalCount =0;
