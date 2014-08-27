@@ -30,16 +30,35 @@ public class UserService
 		return user;
 	}
 	@Transactional
-	public int existUser(String uName,String pwd)
+	public int existUser(String name,String pwd)
 	{  
 		try
 		{
-			String hql =" select Id from t_user where used= true and  name ='"+uName+"' and psd ='"+pwd+"'";
+			String hql =" select Id from t_user where used= true and  name ='"+name+"' and psd ='"+pwd+"'";
 			List<User> userList=userDao.loadList(hql); 
 			return userList.size();
 		}
 		catch(Exception ex){ 
 			return 0;
+		}
+	}
+	@Transactional
+	public User loadByNameAndPwd(String name, String pwd)
+	{
+		User u = new User();
+		String hql =" select Id from t_user where used= true and  name ='"+name+"' and psd ='"+pwd+"'";
+		try
+		{
+			List<User> userList=userDao.loadList(hql); 
+			if(userList.size()>0)
+			{
+				u.setId(userList.get(0).getId());
+				u.setName(userList.get(0).getName()); 
+			}
+			return u;
+		}
+		catch(Exception ex){ 
+			return u;
 		}
 	} 
 }

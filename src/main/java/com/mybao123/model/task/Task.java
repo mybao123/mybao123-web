@@ -53,6 +53,9 @@ public class Task implements IPK
 	private String description;
 
 	@Column
+	private String address;
+
+	@Column
 	private Date createTime;
 	/**
 	 * 获取主键
@@ -189,6 +192,22 @@ public class Task implements IPK
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+	/**
+	 *获取 地址
+	 * @return
+	 */
+	public String getAddress()
+	{
+		return address;
+	}
+   /**
+    * 设置地址
+    * @param Address
+    */
+	public void setAddress(String address)
+	{
+		this.address = address;
 	}
 	/**
 	 * 获取创建时间

@@ -8,6 +8,8 @@ import net.sf.json.JSONObject;
  
 
 
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,9 +19,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  
 
 
+
+
 import com.mybao123.model.task.Task;
 import com.mybao123.model.user.User;
 import com.mybao123.service.TaskService;
+import com.mybao123.util.JsonUtils;
 import com.mybao123.util.PageInfo;
 
 @Controller
@@ -33,113 +38,81 @@ public class TaskController
 	@RequestMapping(value="saveTask.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String saveTask(Task task) throws Exception
 	{
-		JSONObject object = new JSONObject();  
-		long taskId=0; 
-		boolean IsSuceed= false; 
-		String message="";
+		if (task == null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "数据传输错误");
+		}
+		if ("".equals(task.getPersonName()) || task.getPersonName() == null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "客户名称不能为空");
+		}
+		if ("".equals(task.getPhoneNo()) || task.getPhoneNo() == null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "记录时间不能为空");
+		}
+		if ("".equals(task.getDescription()) || task.getDescription() == null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "内容描述不能为空");
+		} 
+		if ("".equals(task.getAddress()) || task.getAddress() == null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "记录地址不能为空");
+		}
 		try
-		{ 
-			if(task==null)
-			{   
-				message= "传入后台对象为空"; 
-			}
-			else
-			{
-				taskService.saveTask(task);
-				taskId = task.getId();
-				IsSuceed = true;
-				message = "保存成功";
-			}
-			object.accumulate("Id", taskId);
-			object.accumulate("IsSuceed", IsSuceed);
-			object.accumulate("Message", message);
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;
+		{  
+			taskService.saveTask(task); 
+			String jsStr = JSONObject.fromObject(task).toString();
+			return JsonUtils.getJsonObject(jsStr, false, "工作记录保存成功");
 		}
 		catch(Exception ex)
 		{
-			object.accumulate("Id", 0);
-			object.accumulate("IsSuceed", false);
-			object.accumulate("Message", ex.getMessage());
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;
+			return JsonUtils.getJsonObject("[]", false, ex.getMessage());
 		}
 	}
 	@RequestMapping(value="deleteTask.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String deleteTask(long id) throws Exception
 	{
-		JSONObject object = new JSONObject();   
-		boolean IsSuceed= false; 
-		String message="";
-		try
+		if(id==0) 
 		{
-			if(id==0) 
-			{
-				message= "传入后台Id为空.";
-			}
-			else
-			{
-				taskService.deleteById(id); 
-				IsSuceed = true;
-				message = "删除成功";
-			}
-			object.accumulate("Id", id);
-			object.accumulate("IsSuceed", IsSuceed);
-			object.accumulate("Message", message);
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;
+			return JsonUtils.getJsonObject("[]", false, "传输数据错误，删除失败");
+		}
+		try
+		{ 
+			taskService.deleteById(id);  
+			return JsonUtils.getJsonObject("", true, "日志记录信息删除成功"); 
 		}
 		catch(Exception ex)
 		{
-			object.accumulate("Id", id);
-			object.accumulate("IsSuceed", IsSuceed);
-			object.accumulate("Message", ex.getMessage());
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;
+			return JsonUtils.getJsonObject("[]", false, ex.getMessage());
 		}
 	}
 	@RequestMapping(value="getTaskById.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String getTaskById(long id) throws Exception
-	{
-		JSONObject object = new JSONObject();   
-		boolean IsSuceed= false; 
-		String message="";
+	{ 
+		if(id==0) 
+		{
+			return JsonUtils.getJsonObject("[]", false, "传输数据错误，获取失败");
+		}
 		try
 		{
-			Task task = new Task();
-			if(id==0) 
+			Task task = new Task(); 
+			task = taskService.loadById(id);
+			if (task == null)
 			{
-				message= "传入后台Id为空.";
+				return JsonUtils.getJsonObject("[]", false, "日志记录信息获取失败");
 			}
-			else
-			{
-				task=taskService.loadById(id);
-				if(task!=null){
-					IsSuceed = true; 
-					message = JSONObject.fromObject(task).toString(); 
-				}else
-					message= "根据Id获取对象失败。";
-			}  			 
-			object.accumulate("Id", id);
-			object.accumulate("IsSuceed", IsSuceed);
-			object.accumulate("Message", message);
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;			 
+			String jsStr = JSONObject.fromObject(task).toString();
+			return JsonUtils.getJsonObject(jsStr, true, "日志记录信息获取成功"); 
 		}
 		catch(Exception ex)
 		{
-			object.accumulate("Id", id);
-			object.accumulate("IsSuceed", IsSuceed);
-			object.accumulate("Message", ex.getMessage());
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr;
+			return JsonUtils.getJsonObject("[]", false, ex.getMessage());
 		}
 	}
 	@RequestMapping(value="loadTaskListWithPage.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String loadListWithPage() throws Exception
 	{
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
-		JSONObject object = new JSONObject();   
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();  
 		PageInfo page = new PageInfo();
 		int pageIndex = 1;
 		int pageSize =20; 
@@ -160,10 +133,7 @@ public class TaskController
 		User user = (User)request.getSession().getAttribute("users");
 		if(user==null)
 		{
-			object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+			return JsonUtils.getJsonObject(0,ObjectStr, false, "用户登录过期，请退出重新登录");
 		}
 		try
 		{ 
@@ -172,34 +142,24 @@ public class TaskController
 			{
 				totalCount= page.getTotalRow();
 				ObjectStr =  JSONObject.fromObject(taskList).toString(); 
-			}
-		 	object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+			} 
+			return JsonUtils.getJsonObject(totalCount,ObjectStr, true, "获取记录列表成功");
 		}
 		catch(Exception ex)
 		{
-			object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+			return JsonUtils.getJsonObject(0,ObjectStr, false, ex.getMessage()); 
 		}
 	}
 	@RequestMapping(value="loadTaskList.do",produces="application/json;charset=UTF-8")
 	public @ResponseBody String loadList() throws Exception
 	{
-		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest(); 
-		JSONObject object = new JSONObject();   
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();    
 		int totalCount =0;
 		String ObjectStr="[]";
 		User user = (User)request.getSession().getAttribute("users");
 		if(user==null)
-		{
-			object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+		{ 
+			return JsonUtils.getJsonObject(0,ObjectStr, false, "用户登录过期，请退出重新登录");
 		}
 		try
 		{ 
@@ -208,18 +168,12 @@ public class TaskController
 			{
 				totalCount= taskList.size();
 				ObjectStr =  JSONObject.fromObject(taskList).toString(); 
-			}
-		 	object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+			} 
+			return JsonUtils.getJsonObject(totalCount,ObjectStr, true, "获取记录列表成功");
 		}
 		catch(Exception ex)
 		{
-			object.accumulate("total ", totalCount);
-			object.accumulate("rows", ObjectStr); 
-			String retStr = JSONObject.fromObject(object).toString(); 
-			return retStr; 
+			return JsonUtils.getJsonObject(0,ObjectStr, false, ex.getMessage()); 
 		}
 	}
 }
