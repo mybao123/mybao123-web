@@ -1,4 +1,4 @@
-package com.mybao123.model;
+package com.mybao123.util;
 
 public class PageInfo
 {

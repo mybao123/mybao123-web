@@ -17,10 +17,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.mybao123.dao.RSAUtils;
 import com.mybao123.model.organization.Organization;
 import com.mybao123.model.user.User;
 import com.mybao123.service.UserService;
+import com.mybao123.util.RSAUtils;
 
 
 @Controller
@@ -106,8 +106,21 @@ public class UserController
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		JSONObject object = new JSONObject();  
 		long uId=0; 
-		boolean IsSuceed= false; 
+		boolean isSuceed= false; 
 		String message="";
+		
+		
+		
+		if(1==1)
+		{
+			isSuceed=false;
+			message="";
+		}
+		
+		if (2==2){
+			
+		}
+		
 		try
 		{ 
 			if(user==null)
@@ -131,22 +144,24 @@ public class UserController
 				}
 				else
 				{
+					//判断是否存在！
+					
 					user.setPsd(pwd);
 					userService.saveUser(user);
 					uId = user.getId();
 					if(uId>0)
 					{
-						IsSuceed= true;
+						isSuceed= true;
 						message="注册成功";
 						HttpSession  session = request.getSession(); 
 						session.setAttribute("user", user);
-						session.setAttribute("username", user.getName());
-						session.setAttribute("password", user.getPsd());
+//						session.setAttribute("username", user.getName());
+//						session.setAttribute("password", user.getPsd());
 					}
 				}
 			}
 			object.accumulate("Id", uId);
-			object.accumulate("IsSuceed", IsSuceed);
+			object.accumulate("IsSuceed", isSuceed);
 			object.accumulate("Message", message);
 			String retStr = JSONObject.fromObject(object).toString(); 
 			return retStr;
@@ -156,6 +171,7 @@ public class UserController
 			object.accumulate("Id", 0);
 			object.accumulate("IsSuceed", false);
 			object.accumulate("Message", ex.getMessage());
+			
 			String retStr = JSONObject.fromObject(object).toString(); 
 			return retStr;
 		} 
@@ -172,9 +188,8 @@ public class UserController
 		{  
 			String privateExponet   = "c4f2f4259062203cd1dab960cfe68ffd57399837a8804d58169e01942fc491dddb31ce29b08a6a393bc8378408fda6201280bbd560a0c68177327d1368a4ba1";
 			String modulus  = "88f6ae182d92151ed240e0c7f51136144609dd5ced49f28171ef33af1e3b1d64c7b5939bc0b12e22f3a046168f8890371555e933a2a5714f7b3a858946eea17f";
-			RSAUtils rsa = new RSAUtils(); 
 			byte[] en_result = new BigInteger(pwd, 16).toByteArray();
-			PrivateKey prk =rsa.getPrivateKey(modulus,privateExponet);//获取私钥
+			PrivateKey prk =RSAUtils.getPrivateKey(modulus,privateExponet);//获取私钥
 			byte[] de_result = RSAUtils.decrypt(prk,en_result);				
 			String dpwd=new String(de_result);
 			return dpwd;

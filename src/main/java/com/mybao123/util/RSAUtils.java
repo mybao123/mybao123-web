@@ -1,4 +1,4 @@
-package com.mybao123.dao;
+package com.mybao123.util;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
@@ -8,19 +8,14 @@ import java.security.spec.RSAPrivateKeySpec;
 
 import javax.crypto.Cipher;
 
-import org.springframework.stereotype.Repository;
-
 /**
  * RSA 工具类。提供加密，解密，生成密钥对等方法。
  * 需要到http://www.bouncycastle.org下载bcprov-jdk14-123.jar。
  * 
  */
-
-@Repository
 public class RSAUtils
 {
-
-	public PrivateKey getPrivateKey(String modulus, String privateExponent)
+	public static PrivateKey getPrivateKey(String modulus, String privateExponent)
 			throws Exception
 	{
 		PrivateKey privateKey = null;
@@ -45,7 +40,6 @@ public class RSAUtils
 	 *            密文
 	 * @return 明文
 	 */
-	@SuppressWarnings("restriction")
 	public static byte[] decrypt(PrivateKey pk, byte[] raw) throws Exception
 	{
 		try

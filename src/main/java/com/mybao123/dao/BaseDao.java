@@ -7,7 +7,7 @@ import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.mybao123.model.PageInfo;
+import com.mybao123.util.PageInfo;
 
 /**
  * dao基础定义
@@ -102,7 +102,7 @@ public  abstract class BaseDao<T> {
      */
     @SuppressWarnings("unchecked")
     public  List<T> loadListWithPage(String hql,PageInfo page) { 
-    	
+
     	 generatePageTotalCount(hql,  page);   
          Query query = sessionFactory.getCurrentSession().createQuery(hql);   
          query.setFirstResult(page.getCurPage());  
