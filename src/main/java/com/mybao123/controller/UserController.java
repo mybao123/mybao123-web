@@ -207,7 +207,7 @@ public class UserController
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value = "updateUser.do", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "getUserInfo.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String getUserInfo(long id) throws Exception
 	{
