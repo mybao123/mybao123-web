@@ -21,8 +21,7 @@ import com.mybao123.model.user.User;
  */
 @Entity(name="t_task")
 public class Task implements IPK
-{
-
+{ 
 	@Id
 	@GeneratedValue
 	private long id;
@@ -51,6 +50,9 @@ public class Task implements IPK
 
 	@Column
 	private String description;
+
+	@Column
+	private String address;
 
 	@Column
 	private Date createTime;
@@ -189,6 +191,22 @@ public class Task implements IPK
 	public void setDescription(String description)
 	{
 		this.description = description;
+	}
+	/**
+	 *获取 地址
+	 * @return
+	 */
+	public String getAddress()
+	{
+		return address;
+	}
+   /**
+    * 设置地址
+    * @param Address
+    */
+	public void setAddress(String address)
+	{
+		this.address = address;
 	}
 	/**
 	 * 获取创建时间
