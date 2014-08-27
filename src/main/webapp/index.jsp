@@ -3,13 +3,6 @@
 	<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<script src="script/base/jquery-1.11.1.min.js" type="text/javascript"></script>
-	<script src="script/base/jquery.easyui.min.js" type="text/javascript"></script>
-<<<<<<< HEAD
-	<script src="script/base/easyui-lang-zh_CN.js" type="text/javascript"></script>
-	<script src="script/base/jquery.artDialog.js" type="text/javascript"></script>
-=======
-	<script src="script/base/easyui-lang-zh_CN.js" type="text/javascript"></script> 
->>>>>>> branch 'master' of https://github.com/mybao123/mybao123-web.git
 	<script src="script/base/json2.js" type="text/javascript"></script>
 	<script src="script/base/Barrett.js" type="text/javascript"></script>
 	<script src="script/base/BigInt.js" type="text/javascript"></script>
