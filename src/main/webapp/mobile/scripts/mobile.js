@@ -16,6 +16,9 @@
 })();
 
 /**
+ * #login Page   begin
+ */
+/**
  * 用户登录
  */
 function onLogin() {
@@ -23,3 +26,8 @@ function onLogin() {
 		transition : "slideup"
 	});
 }
+
+/**
+ * #login Page   end
+ */
+
