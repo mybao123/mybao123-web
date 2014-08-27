@@ -1,5 +1,9 @@
 package com.mybao123.util;
 
+import java.text.DateFormat; 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import net.sf.json.JSONObject;
 
 /**
@@ -30,4 +34,13 @@ public class JsonUtils
 		String retStr = JSONObject.fromObject(object).toString();
 		return retStr;
 	}
+	public static Date getCreateDate() throws Exception
+	{
+		Date now= new Date();
+		DateFormat d =DateFormat.getDateTimeInstance();
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+		Date createDate = sdf.parse(d.format(now));
+		return createDate;
+	}
+	
 }

@@ -1,26 +1,19 @@
 package com.mybao123.controller;
-
+ 
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
- 
-
-
-
-
+  
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
- 
-
-
-
-
+  
 import com.mybao123.model.task.Task;
 import com.mybao123.model.user.User;
 import com.mybao123.service.TaskService;
@@ -30,8 +23,7 @@ import com.mybao123.util.PageInfo;
 @Controller
 @RequestMapping("/Task")
 public class TaskController
-{
-	
+{ 
 	@Autowired
 	private TaskService taskService;
 	
@@ -48,7 +40,7 @@ public class TaskController
 		}
 		if ("".equals(task.getPhoneNo()) || task.getPhoneNo() == null)
 		{
-			return JsonUtils.getJsonObject("[]", false, "记录时间不能为空");
+			return JsonUtils.getJsonObject("[]", false, "客户联系方式不能为空");
 		}
 		if ("".equals(task.getDescription()) || task.getDescription() == null)
 		{
@@ -57,9 +49,20 @@ public class TaskController
 		if ("".equals(task.getAddress()) || task.getAddress() == null)
 		{
 			return JsonUtils.getJsonObject("[]", false, "记录地址不能为空");
+		} 
+		if (task.getTaskType()==null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "记录类型不能为空");
+		}
+		if (task.getTaskTime()==null)
+		{
+			return JsonUtils.getJsonObject("[]", false, "记录时间不能为空");
 		}
 		try
 		{  
+			//获取当前时间，作为创建时间 
+			Date createDate = JsonUtils.getCreateDate();
+			task.setCreateTime(createDate);
 			taskService.saveTask(task); 
 			String jsStr = JSONObject.fromObject(task).toString();
 			return JsonUtils.getJsonObject(jsStr, false, "工作记录保存成功");

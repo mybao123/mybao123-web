@@ -21,8 +21,7 @@ import com.mybao123.model.user.User;
  */
 @Entity(name="t_task")
 public class Task implements IPK
-{
-
+{ 
 	@Id
 	@GeneratedValue
 	private long id;
