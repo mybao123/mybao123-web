@@ -1,6 +1,6 @@
-package com.mybao123.dao;
+package com.mybao123.model;
 
-public class Page
+public class PageInfo
 {
 
 	private int curPage = 1; // 当前页

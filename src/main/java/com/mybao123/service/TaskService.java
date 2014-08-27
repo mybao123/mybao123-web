@@ -5,10 +5,11 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+ 
 
-import com.mybao123.dao.Page;
 import com.mybao123.dao.task.TaskDao;
 import com.mybao123.dao.task.TaskTypeDao;
+import com.mybao123.model.PageInfo;
 import com.mybao123.model.task.Task;
 import com.mybao123.model.task.TaskType;
 
@@ -46,7 +47,7 @@ public class TaskService
 	}
 	
 	@Transactional
-	public List<Task> loadListWithPage(Page page,long userid)
+	public List<Task> loadListWithPage(PageInfo page,long userid)
 	{  
 		 String hql =String.format(" from Task where user.Id ={0} ",userid); 
 		 List<Task> taskList = taskDao.loadListWithPage(hql, page);
