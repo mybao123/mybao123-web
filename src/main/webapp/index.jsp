@@ -5,7 +5,7 @@
 	<script src="script/base/jquery-1.11.1.min.js" type="text/javascript"></script>
 	<script src="script/base/jquery.easyui.min.js" type="text/javascript"></script>
 	<script src="script/base/easyui-lang-zh_CN.js" type="text/javascript"></script>
-	<script src="Script/base/jquery.artDialog.js" type="text/javascript"></script>
+	<script src="script/base/jquery.artDialog.js" type="text/javascript"></script>
 	<script src="script/base/json2.js" type="text/javascript"></script>
 	<script src="script/base/Barrett.js" type="text/javascript"></script>
 	<script src="script/base/BigInt.js" type="text/javascript"></script>
@@ -21,6 +21,6 @@
     <input id="txtpassWord1" class="easyui-validatebox" data-options="required:false" />
  
  <a id="btnLoad" href="javascript:void(0);" class="easyui-linkbutton" iconcls="icon-save" plain="true" onclick="loadAction()">保存</a>
- 
+ <a id="btnLogin" href="mobile/login.html" class="easyui-linkbutton" iconcls="icon-save" plain="true" >登录</a>
 </body>
 </html>

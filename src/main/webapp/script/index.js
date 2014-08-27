@@ -15,6 +15,8 @@ function loadAction(){
 	alert(1);
     var key  = new RSAKeyPair(empoent, '', module); //10001 => e的十六进制
     
+    
+    
     password = encryptedString(key, password);
      
     var username =$('#txtuserName').val();
