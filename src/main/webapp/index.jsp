@@ -9,9 +9,7 @@
 	<script src="script/base/Barrett.js" type="text/javascript"></script>
 	<script src="script/base/BigInt.js" type="text/javascript"></script>
 	<script src="script/base/RSA.js" type="text/javascript"></script>
-	<script src="script/index.js" type="text/javascript"></script>
-	<link href="content/themes/bootstrap/easyui.css" rel="stylesheet" type="text/css" />
-	<link href="content/themes/icon.css" rel="stylesheet" type="text/css" />
+	<script src="script/index.js" type="text/javascript"></script> 
 </head>
 <body>
 <h2>你好！</h2>
