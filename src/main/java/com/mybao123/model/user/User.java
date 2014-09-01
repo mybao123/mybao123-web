@@ -36,6 +36,9 @@ public class User extends Item
 	private String Sex;
 	
 	@Column
+	private String email;
+	
+	@Column
 	private String nickName;
 	
 	@Column
@@ -72,6 +75,16 @@ public class User extends Item
 	}
 
 
+	public String getEmail()
+	{
+		return this.email;
+	}
+
+	public void setEmail(String email)
+	{
+		this.email=email;
+	}
+
 	public String getSex()
 	{
 		return this.Sex;
@@ -81,7 +94,6 @@ public class User extends Item
 	{
 		this.Sex=Sex;
 	}
-	
 	public String getPsd()
 	{
 		return this.psd;
