@@ -11,8 +11,7 @@ Ext.application({
                     title: 'Index',
                     iconCls: 'home',
                     cls: 'home',
-                    html: [
-                        '<img src="images/sencha.png" />',
+                    html: [ 
                         '<h1>Welcome to Sencha Touch</h1>',
                         "<p>You're creating the Getting Started app. This demonstrates how ",
                         "to use tabs, lists and forms to create a simple app</p>",
