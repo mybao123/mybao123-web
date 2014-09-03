@@ -1,0 +1,14 @@
+body {
+	font-size: 12pt;
+	font-family: "Î¢ÈíÑÅºÚ";
+}
+
+.callPhone {
+	background-image: url("call.png");
+	cursor:pointer;
+}
+
+.getAddress {
+	background-image: url("address.png");
+	cursor:pointer;
+}

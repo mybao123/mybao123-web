@@ -17,14 +17,14 @@ function loadAction(){
 	var empoent= '10001';  
 
 	alert(1);
-	setMaxDigits(131); //131 => n的十六进制位数/2+3  
+	//setMaxDigits(131); //131 => n的十六进制位数/2+3  
 	  
 	alert(1);
-    var key  = new RSAKeyPair(empoent, '', module); //10001 => e的十六进制
+    //var key  = new RSAKeyPair(empoent, '', module); //10001 => e的十六进制
     
     
     
-    password = encryptedString(key, password);
+    //password = encryptedString(key, password);
      
     var username =$('#txtuserName').val();
     var user ={};

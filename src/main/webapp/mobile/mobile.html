@@ -19,6 +19,9 @@
 <body>
 	<div data-role="page"  id="login">
 		<div data-role="header" >
+		 <a href="#" data-role="button" data-icon="home">首页</a>
+    <h1>登录</h1>
+    <a href="#" data-role="button" data-icon="search">搜索</a>
 		</div>
 	
 		<div data-role="content">
@@ -30,7 +33,7 @@
 			<input type="password" name="textinput-s" id="txtPsd"   >
 			
 			<a data-role="button" onclick="onLogin()">登录</a>
-			<a data-role="button" onclick="onReg" data-theme="f">注册</a>
+			<a data-role="button" href="#register" data-theme="f">注册</a>
 			
 		</div>
 		
@@ -41,11 +44,16 @@
 	</div>
 
 	<!-- 注册页面 -->
-	<div data-role="page"  data-auto-back-btn="true"  id="register">
+	<div data-role="page"  data-add-back-btn="true" data-back-btn-text="返回"  id="register">
 		<div data-role="header" >
 		</div>
 	
 		<div data-role="content">
+		<label for="txtRegUName">账号:</label>
+			<input type="text" name="textinput-s" id="txtRegUName" placeholder="请输入邮箱/手机号码" value="" data-clear-btn="true"/>
+			
+			<label for="txtRegpsd">密码:</label>
+			<input type="password" name="textinput-s" id="txtRegpsd"   />
 		</div>
 		
 		<div data-role="footer"  data-position="fixed">
