@@ -50,10 +50,10 @@ public class TaskController
 		{
 			return JsonUtils.getJsonObject("[]", false, "记录地址不能为空");
 		} 
-		if (task.getTaskType()==null)
-		{
-			return JsonUtils.getJsonObject("[]", false, "记录类型不能为空");
-		}
+//		if (task.getTaskType()==null)
+//		{
+//			return JsonUtils.getJsonObject("[]", false, "记录类型不能为空");
+//		}
 		if (task.getTaskTime()==null)
 		{
 			return JsonUtils.getJsonObject("[]", false, "记录时间不能为空");

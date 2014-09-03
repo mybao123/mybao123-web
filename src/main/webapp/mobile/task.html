@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>task</title> 
+    <link href="css/index.css" rel="stylesheet" />
+    <link href="css/jquery.mobile-1.4.3.min.css" rel="stylesheet" /> 
+    <script src="scripts/jquery-1.11.1.min.js"></script>
+    <script src="scripts/jquery.mobile-1.4.3.min.js"></script>  
+</head>
+<body>
+<div>
+<table>
+<tr>
+ 	<td><label>名称:</label></td>
+ 	<td  colspan="2"><input  name="textinput-s"  id="txtCustomerName"  type="text"  placeholder="请输入客户名称" value="" data-clear-btn="true" /></td>
+</tr> 
+<tr>
+ 	<td><label>电话:</label></td>
+ 	<td><input  name="textinput-s"  id="txtCustomerphone"  type="text"  placeholder="" value="" data-clear-btn="true" /></td>
+	<td style="width:35px"><a class="callPhone" title="拨打电话" href="#"></a></td>
+</tr>  
+<tr>
+ 	<td><label>地址:</label></td>
+ 	<td><input  name="textinput-s"  id="txtCustomerAddress"  type="text"   placeholder="" value="" data-clear-btn="true"  /></td> 
+	<td style="width:35px"><a class="getAddress" title="获取地址" href="#"></a></td> 
+</tr>
+ <tr>
+ 	<td><label>类型:</label></td>
+ 	<td  colspan="2">
+	 	<div data-role="fieldcontain"> 
+	        <select name="select-choice-a" id="select-choice-a" data-native-menu="false">
+	               <option value="1">电话约访问候</option>
+	         	   <option value="2">收集准主顾或准增员名单</option>
+	    		   <option value="3">接触面谈保险</option>
+	               <option value="5">促成签单</option>
+	               <option value="3">增员面谈</option>
+	               <option value="5">增员上编</option>
+	               <option value="3">递交保单</option>
+	               <option value="0.2">短息微信消息单向发送</option>
+	               <option value="1">短信微信消息双向发送</option> 
+	        </select>
+		</div> 
+    </td>  
+ </tr>
+ <tr>
+ 	<td><label>内容:</label></td>
+ 	<td  colspan="2"><textarea cols="40" rows="8" id="txtTaskDescription" name="textarea" id="textarea"></textarea></td>  
+ </tr>
+ <tr>
+ 	<td><label>时间:</label></td>
+ 	<td  colspan="2"><input id="txtTaskDescription" type="date"  placeholder="" value="" data-clear-btn="true"  /></td>  
+ </tr>
+ </table>
+<div data-role="fieldcontain">
+        <button type="submit" data-theme="b">提交</button>
+ </div>
+ </div>
+</body>
+</html>

@@ -63,13 +63,14 @@ public class LoginController{
 			{
 				return JsonUtils.getJsonObject("[]", false, "密码不能为空");
 			}
-			int c = userService.existUser(user.getName(), dpwd);
+			String password = InversionDpwd(dpwd);
+			int c = userService.existUser(user.getName(), password);
 			if (c == 0)
 			{
 				return JsonUtils.getJsonObject("[]", false, "用户名或密码错误");
 			}
 			User u = new User();
-			u = userService.loadByNameAndPwd(user.getName(), dpwd);
+			u = userService.loadByNameAndPwd(user.getName(), password);
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			String jsStr = JSONObject.fromObject(u).toString();
@@ -80,6 +81,17 @@ public class LoginController{
 		}
 	}
 	
+	/**
+	 * 倒置解密后的字符串	 * 
+	 * @param dpwd解密之后的字符串
+	 * @return
+	 */
+	private String InversionDpwd(String dpwd)
+	{
+		StringBuffer sb=new StringBuffer(dpwd); 
+		return sb.reverse().toString().trim();
+	}
+
 
 	/**
 	 * 密码解密

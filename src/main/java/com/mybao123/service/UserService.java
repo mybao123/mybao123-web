@@ -51,8 +51,8 @@ public class UserService
 		{
 			List<User> userList=userDao.loadList(hql); 
 			if(userList.size()>0)
-			{
-				u.setId(userList.get(0).getId());
+			{    
+				u.setId(Long.valueOf(userList.get(0).getId()).longValue());
 				u.setName(userList.get(0).getName()); 
 			}
 			return u;
