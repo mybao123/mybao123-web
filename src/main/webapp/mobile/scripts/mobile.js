@@ -31,3 +31,8 @@ function onLogin() {
  * #login Page   end
  */
 
+
+function callPhone(){
+	$("#btnCallPhone").attr("href","tel:"+$("#txtPhone").val());
+}
+

@@ -9,6 +9,7 @@
 	<script src="script/base/RSA.js" type="text/javascript"></script>
 	<script src="script/index.js" type="text/javascript"></script> 
 </head>
+
 <body>
 <h2>你好！</h2>
  <div style="display:none">

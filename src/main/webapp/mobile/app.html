@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -17,6 +17,7 @@
     <script src="scripts/mobile.js"></script>
 </head>
 <body>
+<!-- 登录页面 -->
 	<div data-role="page"  id="login">
 		<div data-role="header" >
 		</div>
@@ -24,13 +25,13 @@
 		<div data-role="content">
 		
 			<label for="txtUserName">用户名:</label>
-			<input type="text" name="textinput-s" id="txtUserName" placeholder="邮箱/手机" value="" data-clear-btn="true">
+			<input type="text" name="textinput-s" id="txtUserName" placeholder="邮箱/手机" value="" data-clear-btn="true"/>
 			
 			<label for="txtpsd">口令:</label>
-			<input type="password" name="textinput-s" id="txtPsd"   >
+			<input type="password" name="textinput-s" id="txtPsd"   />
 			
 			<a data-role="button" onclick="onLogin()">登录</a>
-			<a data-role="button" onclick="onReg" data-theme="f">注册</a>
+			<a data-role="button" onclick="onReg()" data-theme="f">注册</a>
 			
 		</div>
 		
@@ -58,6 +59,25 @@
 		</div>
 	</div>
 
+	<!-- 日历 -->
+	<div data-role="page"  data-auto-back-btn="true"  id="calendar">
+		<div data-role="header" >
+		</div>
+		
+		<div data-role="content">
+		</div>
+		
+		<div data-role="footer"  data-position="fixed">
+			<div data-role="navbar">
+				<ul>
+					<li><a data-role="button"  href ="#today">今日</a></li>
+					<li><a data-role="button"  href ="#calendar">日历</a></li>
+					<li><a data-role="button"  href ="#calendar">统计</a></li>
+				</ul>
+			</div>
+		</div>
+		
+	</div>
 	<!-- 今日工作页面 -->
 	<div data-role="page"  data-auto-back-btn="true"  id="today">
 		<div data-role="header" >
@@ -78,24 +98,6 @@
 	
 
 	
-	<!-- 日历工作页面 -->
-	<div data-role="page"  data-auto-back-btn="true"  id="calendar">
-		<div data-role="header" >
-		</div>
 	
-		<div data-role="content">
-		</div>
-		
-		<div data-role="footer"  data-position="fixed">
-			<div data-role="navbar">
-				<ul>
-					<li><a data-role="button"  href ="#today">今日</a></li>
-					<li><a data-role="button"  href ="#calendar">日历</a></li>
-				</ul>
-			</div>
-		</div>
-	
-	</div>
-
 </body>
 </html>
