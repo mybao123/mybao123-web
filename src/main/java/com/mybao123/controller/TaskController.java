@@ -112,11 +112,15 @@ public class TaskController
 			return JsonUtils.getJsonObject(jsStr, true, "日志记录信息获取成功");
 		} catch (Exception ex)
 		{
-			return JsonUtils.getJsonObject("[]", false, ex.getMessage());
+			return JsonUtils.getJsonObject("[]", false, "123");
 		}
 	}
-
-	@RequestMapping(value = "loadTaskListWithPage.do",method= RequestMethod.POST, produces = "application/json;charset=UTF-8")
+	@RequestMapping(value ="ss.do",produces="application/json;charset=UTF-8")
+	public @ResponseBody String LoadInfo(long id) throws Exception
+	{
+		return JsonUtils.getJsonObject("[]", false, "");
+	}
+	@RequestMapping(value = "loadListWithPage.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String loadListWithPage(long id) throws Exception
 	{

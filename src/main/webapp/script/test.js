@@ -43,11 +43,11 @@ function addTaskAction(){
 	alert(taskTime+"---"+taskTypeId+"---"+taskTypeName); 
 	alert("ssssssssss");
 	$.ajax({
-		url: "Task/saveTask.do",
+		url: "Task/getTaskById.do",
         type: "POST",
         dataType: "json",
         async:false, 
-        data:Task,
+        data:{id:2},
 		//contentType: "application/x-www-form-urlencoded; charset=utf-8", 
 		success: function (req) {  
 			

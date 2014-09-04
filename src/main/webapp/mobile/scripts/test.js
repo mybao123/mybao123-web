@@ -115,12 +115,17 @@ function addTaskAction() {
 	// Task.description = content;
 	alert(taskTime + "---" + taskTypeId + "---" + taskTypeName);
 	alert("ssssssssss");
+
+    var user ={};
+    user.name="s";
+    user.psd = "s";
+    user.email = "s";
 	$.ajax({
 		url : "../Task/loadListWithPage.do",
 		type : "POST",
 		dataType : "json",
 		async : false,
-		//data : {id:1},
+		data : {id:1},
 		// contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		success : function(req) {
 			var s = "s";

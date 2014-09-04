@@ -20,7 +20,7 @@ import com.mybao123.util.JsonUtils;
 import com.mybao123.util.RSAUtils;
 
 @Controller
-@RequestMapping("/Register")
+@RequestMapping("Register")
 public class RegisterController
 {
 	@Autowired
