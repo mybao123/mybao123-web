@@ -117,7 +117,7 @@ function addTaskAction() {
 	alert("ssssssssss");
 	$.ajax({
 		url : "../Task/loadListWithPage.do",
-		type : "GET",
+		type : "POST",
 		dataType : "json",
 		async : false,
 		//data : {id:1},

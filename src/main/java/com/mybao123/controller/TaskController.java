@@ -10,6 +10,7 @@ import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -115,9 +116,9 @@ public class TaskController
 		}
 	}
 
-	@RequestMapping(value = "loadTaskListWithPage.do", produces = "application/json;charset=UTF-8")
+	@RequestMapping(value = "loadTaskListWithPage.do",method= RequestMethod.POST, produces = "application/json;charset=UTF-8")
 	public @ResponseBody
-	String loadListWithPage() throws Exception
+	String loadListWithPage(long id) throws Exception
 	{
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
