@@ -116,11 +116,11 @@ function addTaskAction() {
 	alert(taskTime + "---" + taskTypeId + "---" + taskTypeName);
 	alert("ssssssssss");
 	$.ajax({
-		url : "../Task/deleteTask.do",
-		type : "POST",
+		url : "../Task/loadListWithPage.do",
+		type : "GET",
 		dataType : "json",
 		async : false,
-		data : {id:24},
+		//data : {id:1},
 		// contentType: "application/x-www-form-urlencoded; charset=utf-8",
 		success : function(req) {
 			var s = "s";
