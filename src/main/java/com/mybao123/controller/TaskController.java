@@ -9,8 +9,7 @@ import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestMapping; 
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -114,12 +113,7 @@ public class TaskController
 		{
 			return JsonUtils.getJsonObject("[]", false, "123");
 		}
-	}
-	@RequestMapping(value ="ss.do",produces="application/json;charset=UTF-8")
-	public @ResponseBody String LoadInfo(long id) throws Exception
-	{
-		return JsonUtils.getJsonObject("[]", false, "");
-	}
+	} 
 	@RequestMapping(value = "loadListWithPage.do", produces = "application/json;charset=UTF-8")
 	public @ResponseBody
 	String loadListWithPage(long id) throws Exception
