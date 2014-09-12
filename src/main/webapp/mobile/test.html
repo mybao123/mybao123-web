@@ -1,53 +1,106 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <title>BlankCordovaApp2</title>
+<meta charset='utf-8' />
+<link href='css/fullcalendar.css' rel='stylesheet' />
+<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
+<script src='scripts/moment.min.js'></script>
+<script src='scripts/jquery-1.11.1.min.js'></script>
+<script src='scripts/fullcalendar.min.js'></script>
+<script>
 
-    <!-- BlankCordovaApp2 references -->
-    <link href="css/index.css" rel="stylesheet" />
-    <link href="css/jquery.mobile-1.4.3.min.css" rel="stylesheet" />
-    <script src="cordova.js"></script>
-    <script src="scripts/jquery-1.11.1.min.js"></script>
-    <script src="scripts/jquery.mobile-1.4.3.min.js"></script>
-    <script src="scripts/platformOverrides.js"></script> 
+	$(document).ready(function() {
+		
+		$('#calendar').fullCalendar({
+			header: {
+				left: 'prev,next today',
+				center: 'title',
+				right: 'month,basicWeek,basicDay'
+			},
+			defaultDate: '2014-09-12',
+			editable: true,
+			eventLimit: true, // allow "more" link when too many events
+			events: [
+				{
+					title: 'All Day Event',
+					start: '2014-09-01'
+				},
+				{
+					title: 'Long Event',
+					start: '2014-09-07',
+					end: '2014-09-10'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-09-09T16:00:00'
+				},
+				{
+					id: 999,
+					title: 'Repeating Event',
+					start: '2014-09-16T16:00:00'
+				},
+				{
+					title: 'Conference',
+					start: '2014-09-11',
+					end: '2014-09-13'
+				},
+				{
+					title: 'Meeting',
+					start: '2014-09-12T10:30:00',
+					end: '2014-09-12T12:30:00'
+				},
+				{
+					title: 'Lunch',
+					start: '2014-09-12T12:00:00'
+				},
+				{
+					title: 'Meeting',
+					start: '2014-09-12T14:30:00'
+				},
+				{
+					title: 'Happy Hour',
+					start: '2014-09-12T17:30:00'
+				},
+				{
+					title: 'Dinner',
+					start: '2014-09-12T20:00:00'
+				},
+				{
+					title: 'Birthday Party',
+					start: '2014-09-13T07:00:00'
+				},
+				{
+					title: 'Click for Google',
+					url: 'http://google.com/',
+					start: '2014-09-28'
+				}
+			]
+		});
+		
+	});
+
+</script>
+<style>
+
+	body {
+		margin: 40px 10px;
+		padding: 0;
+		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
+		font-size: 14px;
+	}
+
+	#calendar {
+		max-width: 900px;
+		height:100%;
+		margin: 0 auto;
+	}
+
+</style>
 </head>
 <body>
-    <p>Hello, your application is ready!</p>
 
-    <!-- Cordova reference, this is added to your app when it's built. -->
-    
-    <div data-role="page"  data-fullscreen="true" id="main"  data-scheme="f">
-        <div data-role="header"></div>
-        <div data-role="content">
-            <a data-role="button"  data-icon="delete"  href ="tel:13568865179">打电话</a>
-            <a data-role="button"  data-icon="check"  onclick="onGetPosition()">获取位置</a>
-        </div>
-
-        <div data-role="footer" data-position="fixed">
-            <a data-role="button"  data-icon="alert" onclick="onGetPosition()">返回</a>
-        </div>
-
-    </div>
-
-    <div data-role="page" id="task">
-        <div data-role="header">
-
-        </div>
-
-        <div data-role="content">
-
-        </div>
-
-
-        <div data-role="footer" data-position="fixed">
-            <a href="#main" data-role="button" data-icon="back">返回</a>
-        </div>
-
-    </div>
+	<div id='calendar'></div>
 
 </body>
 </html>
