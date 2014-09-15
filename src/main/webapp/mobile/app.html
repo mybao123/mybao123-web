@@ -9,15 +9,14 @@
 	content="black-translucent" />
 <title>BlankCordovaApp2</title>
 
-<link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet" />
+<link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet" />  
 <link href="css/login.css" rel="stylesheet" /> 
 <script src="scripts/jquery-1.11.1.min.js"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5"></script>
 <script type="text/javascript" src="http://dev.baidu.com/wiki/static/map/API/examples/script/convertor.js"></script>
-<script src="scripts/jquery.mobile-1.3.2.min.js"></script>  
-
+<script src="scripts/jquery.mobile-1.3.2.min.js"></script> 
 <script type="text/javascript">
-	$(function() { 
+	$(function() {  
 		 $("#today").on("swipeleft",function(){ 
 			 window.location.href="#total";
 		 });    
@@ -35,7 +34,25 @@
 		 });    
 		 $("#yesterday").on("swipeleft",function(){ 
 			 window.location.href="#today";
-		 });   
+		 });    
+		 $("#calendar").on("swiperight",function(){ 
+			 window.location.href="#lmonth";
+		 });    
+		 $("#calendar").on("swipeleft",function(){ 
+			 window.location.href="#nmonth";
+		 });  
+		 $("#nmonth").on("swipeleft",function(){ 
+			 window.location.href="#nmonth";
+		 }); 
+		 $("#nmonth").on("swiperight",function(){ 
+			 window.location.href="#calendar";
+		 });  
+		 $("#lmonth").on("swipeleft",function(){ 
+			 window.location.href="#calendar";
+		 }); 
+		 $("#lmonth").on("swiperight",function(){ 
+			 window.location.href="#lmonth";
+		 }); 
 		 //$("#masterpage").on("swipeleft",function(){ 
 		 //	 window.location.href="#statistic";
 		 //});   
@@ -61,9 +78,15 @@
 		 //$("#tasklabel").on("swiperight",function(){ 
 		//	 window.location.href="#setting";
 		 //});    
-		 $("li[name='recorddetail']").on("taphold",function(){
-			    window.location.href="#newrecord";
+		 $("li[name='recorddetail']").bind("taphold",function(event){
+			 	//event.stopPropagation();
+			    window.location.href="#confirm-dialog";
+			    //return false;
 		 });   
+		 $("li[name='recorddetail']").bind("tap",function(event){
+			 	event.stopPropagation();
+			    window.location.href="#newrecord";
+		 });  
 		 $("div[name='deptdetail']").on("tap",function(){
 			    window.location.href="#deptstatistic";
 		 });
@@ -71,7 +94,8 @@
 			    window.location.href="#personstatistic";
 		 });
 		 //点击打电话图标，调用电话接口，直接拨打电话
-		 $("img[name='takecall']").on("tap",function(){
+		 $("img[name='takecall']").bind("tap",function(event){
+			 	event.stopPropagation();
 			 	window.location.href="Tel:13568865179";
 		 });  
 		 //点击地址图标，获取实际地址
@@ -86,6 +110,10 @@
              	showgps();
          	 } 
 		 });
+		 
+		 $("img[name='getlocationphoto']").on("tap",function(){
+			 alert("照相");
+		 });  
 		 //调用手机接口，获取经纬度
 		 function showgps(position)
 		 {
@@ -113,8 +141,42 @@
 	     }
 		 function saveTaskInfo(){
 			 
-		 };
-	})
+		 }; 
+	});
+	function loginAction(){  
+		var username = $("#txtusername").val();
+		if (username == "") {
+			alert("请输入用户名！");
+			return;
+		}
+		var password = $("#txtpassword").val();
+		if (password == "") {
+			alert("请输入登录密码！");
+			return;
+		}
+		var User = {};
+		User.name = username;
+		User.psd = password;
+		$.ajax({
+			url : "../Login/userLogin.do",
+			type : "POST",
+			dataType : "json",
+			async : false,
+			data : User,
+			// contentType: "application/x-www-form-urlencoded; charset=utf-8",
+			success : function(req) { 
+				if(req){
+					if(req.isSuceed){
+						window.location.href="#masterpage";
+					}else{
+						alert(req.message);
+					}
+				}else{
+					alert("登录失败");
+				}
+			}
+		});
+	}
 </script>
 <style>
 .ui-block-a, 
@@ -125,7 +187,9 @@
 background-color: lightgray; 
 height: 40px;
 font-weight: bold; 
-} 
+}	
+
+video { transform: scaleX(-1); }
 </style>
 </head>
 <body>
@@ -138,17 +202,18 @@ font-weight: bold;
 				<form id="contact" action="" method="post">
 					<h3>登录</h3>
 					<fieldset>
-						<input placeholder="请输入邮箱号码/手机号码" type="text" tabindex="1"
+						<input id="txtusername" placeholder="请输入邮箱号码/手机号码" type="text" tabindex="1"
 							required autofocus>
 					</fieldset>
 					<fieldset>
-						<input placeholder="请输入密码" type="password" tabindex="2" required>
+						<input id="txtpassword"  placeholder="请输入密码" type="password" tabindex="2" required>
 					</fieldset>
 					<fieldset>
 						<div class='rem'>记住密码</div>
 					</fieldset>
 					<fieldset>
-						<a href="#masterpage" data-role="button">登录</a>
+						<!--<a href="#" id="btnloginAction" onclick="loginAction()" data-role="button">登录</a>-->
+						<a href="#masterpage"  data-role="button">登录</a>
 						<!-- button name="submit"  type="submit" id="contact-submit" data-submit="...Sending">登录</button> -->
 
 						<a href="#register" data-role="button">注册</a>
@@ -204,9 +269,10 @@ font-weight: bold;
 			<h1>首页</h1> 
 			<!--<a href="#masterpage" data-transition="slide" class="ui-btn-right" data-corners="false" data-role="button" data-inline="true" data-mini="true"
 				data-icon="grid">团队</a> -->
-				<p data-theme="d" align="center"><label>当前所属组织：</label><label>销售部</label></p>
+				
 		</div> 
 		<div data-role="content"  data-theme="b" > 
+				<div data-theme="d" align="left"><label>当前所属组织：</label><label>销售部</label></div>
 			<div data-role="collapsible" data-collapsed="false">
 				<h1>今日工作统计明细</h1>
 				<div class="ui-grid-b" data-theme="b">
@@ -299,12 +365,12 @@ font-weight: bold;
 	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="deptstatistic" data-theme="b">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="back"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
-			<h1>部门工作记录统计明细</h1>
-			<div data-theme="d"><p  align="center"><label>当前位置：</label><label>销售一部</label></p></div> 
+			<h1>部门工作记录统计明细</h1> 
 			<!-- <a href="#" class="ui-btn-right" data-role="button" data-corners="false" data-iconpos="notext" id="btnSaveNewTask"
 				data-icon="check" data-shadow="false">保存</a>   -->
 		</div>	
 		<div data-role="content"  data-theme="b" >
+			<div data-theme="d"  align="left"><label>当前位置：</label><label>销售一部</label></div>
 			<div class="ui-grid-b" data-theme="b">
 				<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>人员</span></div>
 	     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>总分值</span></div>
@@ -336,12 +402,12 @@ font-weight: bold;
 	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="personstatistic" data-theme="b">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#deptstatistic" data-transition="slide" data-icon="back" data-corners="false"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
-			<h1>个人工作记录统计明细</h1>
-			<p data-theme="d" align="center"><label>当前位置：</label><label>张三工作统计</label></p>
+			<h1>个人工作记录统计明细</h1> 
 			<!-- <a href="#" class="ui-btn-right" data-role="button" data-iconpos="notext" id="btnSaveNewTask"
 				data-icon="check" data-shadow="false">保存</a>   -->
 		</div> 
 		<div data-role="content"  data-theme="b" >
+			<div data-theme="d"  align="left"><label>当前位置：</label><label>张三工作记录详细</label></div>
 			<div class="ui-grid-b" data-theme="b">
 				<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>业务类别</span></div>
 	     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>分值</span></div>
@@ -394,13 +460,20 @@ font-weight: bold;
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home"data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>2014-09</h1> 
-			<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
-				data-icon="gear" data-inline="true" data-mini="true">设置</a>
+			<!-- a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
+				data-icon="gear" data-inline="true" data-mini="true">设置</a> -->
 		</div> 
-		<div data-role="content"> 
-			
-		</div>
-
+		<div data-role="content" data-theme="b" > 
+			<div class="ui-grid-e" data-theme="b">
+				<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>日</span></div>
+	     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>一</span></div>
+	     		<div class="ui-block-c"  data-theme="b"  style="border: 0px; text-align:center;"><span>二</span></div> 
+	     		<div class="ui-block-d"  data-theme="b"  style="border: 0px; text-align:center;"><span>三</span></div>
+	     		<div class="ui-block-e"  data-theme="b"  style="border: 0px; text-align:center;"><span>四</span></div>
+	     		<div class="ui-block-f"  data-theme="b"  style="border: 0px; text-align:center;"><span>五</span></div>
+	     		<div class="ui-block-g"  data-theme="b"  style="border: 0px; text-align:center;"><span>六</span></div>
+			</div>
+		</div> 
 		<div data-role="footer" data-position="fixed" data-theme="b" >
 			<div data-role="navbar">
 				<ul>
@@ -419,18 +492,29 @@ font-weight: bold;
 		<div data-role="header" data-position="fixed" data-theme="b" >
 		<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			
-			<h1>2014-8</h1>
-			<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
-				data-icon="gear">设置</a>
+			<h1>2014-09</h1>
+			<!--<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
+				data-icon="gear">设置</a>-->
 		</div>
 
 		<div data-role="content" data-theme="b" >
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#lmonth" data-icon="arrow-l">上月</a></li>
-					<li><a href="#nmonth" data-icon="arrow-r">下月</a></li>
-				</ul>
-			</div>
+		 <time datetime="2014-09-11" class="icon">
+			  <em>星期四</em>
+			  <strong>2014-09-11</strong>
+			  <span>11</span>  
+					 <p><h3>上午10:00</h3></p>
+					  <p>客户：张三,13981970816</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>上午11:00</p> 
+					  <p>客户：李四,13568865179</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>下午14:00</p> 
+					  <p>客户：王五,13981970816</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>下午16:00</p> 
+					  <p>客户：王五,13568865179</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p>   
+			</time>
 		</div>
 
 		<div data-role="footer" data-position="fixed" data-theme="b" >
@@ -450,18 +534,29 @@ font-weight: bold;
 		id="nmonth">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
-			<h1>2014-10</h1>
-			<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
-				data-icon="gear">设置</a>
+			<h1>2014-09</h1>
+			<!--<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
+				data-icon="gear">设置</a>-->
 		</div>
 
 		<div data-role="content" data-theme="b" >
-			<div data-role="navbar">
-				<ul>
-					<li><a href="#lmonth" data-icon="arrow-l">上月</a></li>
-					<li><a href="#nmonth" data-icon="arrow-r">下月</a></li>
-				</ul>
-			</div>
+			 <time datetime="2014-09-12" class="icon">
+			  <em>星期六</em>
+			  <strong>2014-09-13</strong>
+			  <span>13</span>  
+					 <p><h3>上午10:00</h3></p>
+					  <p>客户：张三,13981970816</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>上午11:00</p> 
+					  <p>客户：李四,13568865179</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>下午14:00</p> 
+					  <p>客户：王五,13981970816</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p> 
+					  <p>下午16:00</p> 
+					  <p>客户：王五,13568865179</p> 
+					  <p>电话预约访问，收集准主顾或准增员名单</p>   
+			</time>
 		</div>
 
 		<div data-role="footer" data-position="fixed" data-theme="b" >
@@ -573,9 +668,9 @@ font-weight: bold;
 				</li>
 				<li name="recorddetail"> 
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>下午14:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>下午14:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：王五,13981970816</label></td><td>
-	       				 <img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				 <img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	 <tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	 </tr>
@@ -583,9 +678,9 @@ font-weight: bold;
 				</li>
 				<li name="recorddetail"> 
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>下午16:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>下午16:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：王五,13568865179</label></td><td>
-	       				 <img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				 <img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	 <tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	 </tr>
@@ -619,9 +714,9 @@ font-weight: bold;
 			<ul data-role="listview"  data-theme="d" >
 				<li name="recorddetail">  
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>上午10:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>上午10:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：张三,13981970816</label></td><td>
-	       				<img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				<img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	<tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	</tr>
@@ -629,9 +724,9 @@ font-weight: bold;
 				</li>
 				<li name="recorddetail">  
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>上午11:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>上午11:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：李四,13568865179</label></td><td>
-	       				 <img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				 <img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	 <tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	 </tr>
@@ -639,9 +734,9 @@ font-weight: bold;
 				</li>
 				<li name="recorddetail"> 
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>下午14:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>下午14:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：王五,13981970816</label></td><td>
-	       				 <img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				 <img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	 <tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	 </tr>
@@ -649,9 +744,9 @@ font-weight: bold;
 				</li>
 				<li name="recorddetail"> 
 					 <table style="width:100%; text-align:left">
-						 <tr><td><h3>下午16:00</h3></td><td>未完成</td></tr> 
+						 <tr><td><h3>下午16:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
 	       				 <tr><td><label>客户：王五,13568865179</label></td><td>
-	       				 <img name="takecall" alt="拨打电话" src="css/images/calling.png"></td></tr>
+	       				 <img name="takecall" alt="拨打电话" src="css/images/called.png"></td></tr>
 	       			 	 <tr>
 	       			 		<td colspan="2">电话预约访问，收集准主顾或准增员名单</td>
 	       			 	 </tr>
@@ -693,7 +788,7 @@ font-weight: bold;
 				<tr>
 					<td><label for="txtCustomerAddress">地址:</label></td>
 					<td><input  name="txtCustomerAddress"  id="txtCustomerAddress"  type="search"   placeholder="" value="" data-clear-btn="true"  /> </td>
-					<td><img name="getlocationAddress" alt="获取地址" src="css/images/address.png"></td>
+					<td><img name="getlocationAddress" alt="获取地址" src="css/images/location.png"></td>
 				</tr>
 				<tr>
 					<td><label for="selectchoicea">类型:</label></td>
@@ -722,7 +817,14 @@ font-weight: bold;
 					<td colspan="2"><input id="txtTaskTime" type="date"  placeholder="" value="" data-clear-btn="true"  /></td>				
 				</tr>
 				<tr>
-					<td colspan="3"><a href="#" id="btnSaveTask" data-corners="false"  data-theme="a"  data-role="button">保存</a></td> 				
+					<td>
+						<label for="txtCustomerphoto">照片:</label> 
+					</td>
+					<td><input  name="txtCustomerphoto"  id="txtCustomerphoto"  type="text"   placeholder="" value="" data-clear-btn="true"  /></td>
+					<td><img name="getlocationphoto" alt="图片获取" src="css/images/photo.png"></td>			
+				</tr> 
+				<tr>
+					<td colspan="3"><a href="#taskconfirmdia" id="btnSaveTask" data-corners="false"  data-theme="a"  data-role="button">保存</a></td> 				
 				</tr> 
 			</table>   
 		</div>
@@ -947,6 +1049,63 @@ font-weight: bold;
 		<div data-role="footer" data-theme="b"  data-position="fixed"> 
 			<p align="center">成都星云软件工作室</p>
 		</div>
+	</div>
+	<!-- 在记录页面，长时间触控数据时候，弹出对话框设置 -->
+	<div data-role="dialog" id="confirm-dialog">
+
+    	<!-- 页眉部分start -->
+    	<div data-role="header">
+       		<h1>操作</h1>
+    	</div>
+   		 <!-- 页眉部分end -->
+    
+   		 <!-- content部分start -->
+	    <div data-role="content" data-theme="b" > 
+	    	<a href="#deletedialog"  data-corners="false"   data-theme="b"  data-role="button">删除</a>
+	    	<a href="#newrecord"  data-corners="false"   data-theme="b"  data-role="button">编辑</a> 
+	    </div>
+    	<!-- content部分end -->
+
+	</div>
+	<!-- 保存task记录时候，提示是否保存客户资料-->
+	<div data-role="dialog" id="taskconfirmdia">
+
+    	<!-- 页眉部分start -->
+    	<div data-role="header">
+       		<h1>提示信息</h1>
+    	</div>
+   		 <!-- 页眉部分end -->
+    
+   		 <!-- content部分start -->
+	    <div data-role="content" data-theme="b" > 
+	    	<h2>该客户资料为收集，是否保存客户资料？</h2>
+	    	<table style="width:100%">
+	    		<tr><td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">是</a></td>
+	    		<td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">否</a> </td></tr>
+	    	</table> 
+	    </div>
+    	<!-- content部分end -->
+
+	</div>
+	<!-- 删除task记录时候，弹出对话框设置 -->
+	<div data-role="dialog" id="deletedialog">
+
+    	<!-- 页眉部分start -->
+    	<div data-role="header">
+       		<h1>提示信息</h1>
+    	</div>
+   		 <!-- 页眉部分end -->
+    
+   		 <!-- content部分start -->
+	    <div data-role="content" data-theme="b" > 
+	    	<h2>确认删除该条记录？</h2>
+	    	<table style="width:100%">
+	    		<tr><td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">确定</a></td>
+	    		<td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">取消</a> </td></tr>
+	    	</table> 
+	    </div>
+    	<!-- content部分end -->
+
 	</div>
 	<!-- 记录标签管理修改 
 	<div id="tasklabel" data-role="page" data-theme="b" data-auto-back-btn="true">

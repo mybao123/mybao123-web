@@ -74,7 +74,7 @@ public class LoginController{
 			HttpSession session = request.getSession();
 			session.setAttribute("user", u);
 			String jsStr = JSONObject.fromObject(u).toString();
-			return JsonUtils.getJsonObject(jsStr, false, "登录成功");
+			return JsonUtils.getJsonObject(jsStr, true, "登录成功");
 		} catch (Exception ex)
 		{
 			return JsonUtils.getJsonObject("[]", false, ex.getMessage()); 
