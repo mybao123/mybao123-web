@@ -1,106 +1,64 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset='utf-8' />
-<link href='css/fullcalendar.css' rel='stylesheet' />
-<link href='css/fullcalendar.print.css' rel='stylesheet' media='print' />
-<script src='scripts/moment.min.js'></script>
-<script src='scripts/jquery-1.11.1.min.js'></script>
-<script src='scripts/fullcalendar.min.js'></script>
-<script>
-
-	$(document).ready(function() {
-		
-		$('#calendar').fullCalendar({
-			header: {
-				left: 'prev,next today',
-				center: 'title',
-				right: 'month,basicWeek,basicDay'
-			},
-			defaultDate: '2014-09-12',
-			editable: true,
-			eventLimit: true, // allow "more" link when too many events
-			events: [
-				{
-					title: 'All Day Event',
-					start: '2014-09-01'
-				},
-				{
-					title: 'Long Event',
-					start: '2014-09-07',
-					end: '2014-09-10'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-09-09T16:00:00'
-				},
-				{
-					id: 999,
-					title: 'Repeating Event',
-					start: '2014-09-16T16:00:00'
-				},
-				{
-					title: 'Conference',
-					start: '2014-09-11',
-					end: '2014-09-13'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-09-12T10:30:00',
-					end: '2014-09-12T12:30:00'
-				},
-				{
-					title: 'Lunch',
-					start: '2014-09-12T12:00:00'
-				},
-				{
-					title: 'Meeting',
-					start: '2014-09-12T14:30:00'
-				},
-				{
-					title: 'Happy Hour',
-					start: '2014-09-12T17:30:00'
-				},
-				{
-					title: 'Dinner',
-					start: '2014-09-12T20:00:00'
-				},
-				{
-					title: 'Birthday Party',
-					start: '2014-09-13T07:00:00'
-				},
-				{
-					title: 'Click for Google',
-					url: 'http://google.com/',
-					start: '2014-09-28'
-				}
-			]
-		});
-		
-	});
-
-</script>
-<style>
-
-	body {
-		margin: 40px 10px;
-		padding: 0;
-		font-family: "Lucida Grande",Helvetica,Arial,Verdana,sans-serif;
-		font-size: 14px;
-	}
-
-	#calendar {
-		max-width: 900px;
-		height:100%;
-		margin: 0 auto;
-	}
-
-</style>
+	<meta charset="utf-8" />   
+	<meta name="viewport" content="width=device-width, minimum-scale=1, maximum-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <title>拍照</title>
+    <script src="scripts/jquery-1.11.1.min.js"></script>
+     <script type="text/javascript">
+ 
+        $(document).ready(init);
+ 
+        function init() {
+ 
+            //Google Chrome
+            navigator.webkitGetUserMedia("video", success);  //初始化视频流
+ 
+ 
+            //绑定拍照事件
+            $("input[type='button']").click(function () {
+                shoot(); //拍照方法
+            });
+        }
+        function success(stream) {
+ 
+            $("#myVideo").attr("src", window.webkitURL.createObjectURL(stream));
+        }
+        //拍照
+        function shoot() {
+ 
+            var video = $("#myVideo")[0];
+            var canvas = capture(video);
+ 
+ 
+            $("#result").empty();
+            $("#result").append(canvas); //画布
+            var imgData = canvas.toDataURL("image/jpg");
+            var base64String = imgData.substr(22); //数据流
+  
+        }
+ 
+        //初始化画布
+        function capture(video) {
+ 
+            var canvas = document.createElement('canvas');//创建画布
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            var ctx = canvas.getContext('2d');
+            ctx.drawImage(video, 0, 0);
+            return canvas;
+        }
+    </script>
 </head>
 <body>
-
-	<div id='calendar'></div>
-
+    <video id="myVideo" autoplay="autoplay"></video>
+    <br />
+    <input type="button" value="photo" /><br /> 
+    <label>拍照结果</label>
+    <div id="result">
+    </div>
+   
 </body>
 </html>

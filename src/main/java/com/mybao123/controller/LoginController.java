@@ -52,10 +52,6 @@ public class LoginController{
 		{
 			return JsonUtils.getJsonObject("[]", false, "密码不能为空");
 		}
-		if ("".equals(user.getEmail()) || user.getEmail() == null)
-		{
-			return JsonUtils.getJsonObject("[]", false, "邮箱地址不能为空");
-		}
 		try
 		{
 			String dpwd = DecryptUserPwd(user.getPsd());
