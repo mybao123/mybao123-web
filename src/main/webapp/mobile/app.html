@@ -9,245 +9,17 @@
 	content="black-translucent" />
 <title>BlankCordovaApp2</title>
 
-<link href="css/jquery.mobile-1.3.2.min.css" rel="stylesheet" />  
+<link href="css/jquery.mobile-1.4.3.min.css" rel="stylesheet" />  
 <link href="css/login.css" rel="stylesheet" /> 
-<script src="scripts/jquery-1.11.1.min.js"></script>
+<script src="scripts/jquery-1.11.1.min.js"></script> 
+<script src="scripts/app.js" type="text/javascript"></script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=1.5"></script>
 <script type="text/javascript" src="http://dev.baidu.com/wiki/static/map/API/examples/script/convertor.js"></script>
-<script src="scripts/jquery.mobile-1.3.2.min.js"></script>
-<script src="scripts/RSA.js"></script>
-<script src="scripts/Barrett.js"></script>
-<script src="scripts/BigInt.js"></script> 
-<script src="scripts/json2.js"></script> 
-<script type="text/javascript"> 
-	$(function() {   
-		 $("#today").on("swipeleft",function(){ 
-			 window.location.href="#total";
-		 });    
-		 $("#today").on("swiperight",function(){ 
-			 window.location.href="#yesterday";
-		 }); 
-		 $("#total").on("swipeleft",function(){ 
-			 window.location.href="#total";
-		 });    
-		 $("#total").on("swiperight",function(){ 
-			 window.location.href="#today";
-		 });   
-		 $("#yesterday").on("swiperight",function(){ 
-			 window.location.href="#yesterday";
-		 });    
-		 $("#yesterday").on("swipeleft",function(){ 
-			 window.location.href="#today";
-		 });    
-		 $("#calendar").on("swiperight",function(){ 
-			 window.location.href="#lmonth";
-		 });    
-		 $("#calendar").on("swipeleft",function(){ 
-			 window.location.href="#nmonth";
-		 });  
-		 $("#nmonth").on("swipeleft",function(){ 
-			 window.location.href="#nmonth";
-		 }); 
-		 $("#nmonth").on("swiperight",function(){ 
-			 window.location.href="#calendar";
-		 });  
-		 $("#lmonth").on("swipeleft",function(){ 
-			 window.location.href="#calendar";
-		 }); 
-		 $("#lmonth").on("swiperight",function(){ 
-			 window.location.href="#lmonth";
-		 }); 
-		 //$("#masterpage").on("swipeleft",function(){ 
-		 //	 window.location.href="#statistic";
-		 //});   
-		 //$("#statistic").on("swipeleft",function(){ 
-		 //	 window.location.href="#TWeek";
-		 //});      
-		 //$("#statistic").on("swiperight",function(){ 
-		 //	 window.location.href="#masterpage";
-		 //});  
-		 //$("#TWeek").on("swipeleft",function(){ 
-		 //	 window.location.href="#TMonth";
-		 //});    
-		 //$("#TWeek").on("swiperight",function(){ 
-		 //	 window.location.href="#statistic";
-		 //});    
-		 //$("#TMonth").on("swiperight",function(){ 
-		 //	 window.location.href="#TWeek";
-		 //});  
-		  
-		 //$("#setting").on("swipeleft",function(){ 
-		 //	 window.location.href="#tasklabel";
-		 //});    
-		 //$("#tasklabel").on("swiperight",function(){ 
-		//	 window.location.href="#setting";
-		 //});    
-		 $("li[name='recorddetail']").bind("taphold",function(event){
-			 	//event.stopPropagation();
-			    window.location.href="#confirm-dialog";
-			    //return false;
-		 });   
-		 $("li[name='recorddetail']").bind("tap",function(event){
-			 	event.stopPropagation();
-			    window.location.href="#newrecord";
-		 });  
-		 $("h3[name='daysdetail']").bind("tap",function(event){ 
-			    window.location.href="#today";
-		 });   
-		 $("label[name='contentdetail']").bind("tap",function(event){ 
-			    window.location.href="#newrecord";
-		 }); 
-		 $("div[name='deptdetail']").on("tap",function(){
-			    window.location.href="#deptstatistic";
-		 });
-		 $("div[name='persondetail']").on("tap",function(){
-			    window.location.href="#personstatistic";
-		 });
-		 //点击打电话图标，调用电话接口，直接拨打电话
-		 $("img[name='takecall']").bind("tap",function(event){
-			 	event.stopPropagation();
-			 	window.location.href="Tel:13568865179";
-		 });  
-		 //点击地址图标，获取实际地址
-		 $("img[name='getlocationAddress']").on("tap",function(){
-			 var gps = navigator.geolocation;
-			 if (gps)
-			 {	
-			 	gps.getCurrentPosition(showgps,function(error){alert("Got an error, code: " + error.code + " message: "+ error.message);},{maximumAge: 10000}); // 这里设置超时为10000毫秒，即10秒
-	         }
-         	 else
-         	 {
-             	showgps();
-         	 } 
-		 });
-		  
- 		 //调用手机接口，获取经纬度
-		 function showgps(position)
-		 {
-             if (position)
-             {
-                 var latitude = position.coords.latitude;
-                 var longitude = position.coords.longitude;
-                 getLocationAddress(longitude,latitude);
-                 //alert("latitude: " + latitude + "\r\n longitude: "+ longitude);
-             }
-             else
-                 alert("获取地理位置失败");
-	     };
-	     //调用百度地图API，解析经纬度，获取实际地址
-	     function getLocationAddress(Longitude,Latitude) {
-	         var loactionPoint = new BMap.Point(Longitude, Latitude);    // 创建点坐标
-	         var gc = new BMap.Geocoder();
-	         gc.getLocation(loactionPoint, function (rs) {
-	             var addComp = rs.addressComponents;
-	             var sContent = "";
-	             sContent += addComp.province + " " + addComp.city + " " + addComp.district + " " + addComp.street + " " + addComp.streetNumber;
-	             $("#txtCustomerAddress").val(sContent);
-	         }); 
-	     }
-		 function saveTaskInfo(){
-			 
-		 }; 
-		 
-		
-		 $("img[name='getlocationphoto']").on("tap",function(){ 
-			 window.location.href="#photopage";
-
-		 });   
-		 window.addEventListener("DOMContentLoaded", function() { 
-				// canvas 元素将用于抓拍       
-				var canvas = document.getElementById("canvas"),            
-				context = canvas.getContext("2d"),            
-				// video 元素，将用于接收并播放摄像头 的数据流            
-				video = document.getElementById("video"),            
-				videoObj = { "video": true },            
-				// 一个出错的回调函数，在控制台打印出错信息          
-				errBack = function(error) {                
-					if("object" === typeof window.console){                    
-						console.log("Video capture error: ", error.code);                 
-						}            
-					};         
-					// Put video listeners into place        
-					// 针对标准的浏览器        
-					if(navigator.getUserMedia) { // Standard            
-						navigator.getUserMedia(videoObj, function(stream) {                
-							video.src = stream;                
-							video.play();            
-							}, errBack);       
-					} else if(navigator.webkitGetUserMedia) { // WebKit-prefixed            
-						navigator.webkitGetUserMedia(videoObj, function(stream){                
-							video.src = window.webkitURL.createObjectURL(stream);                
-							video.play();            
-							}, errBack);        
-					}        
-					// 对拍照按钮的事件监听        
-					document.getElementById("snap").addEventListener("click", function() {            // 画到画布上           
-						context.drawImage(video, 0, 0, 320, 240);        
-					});     
-			}, false);
-	}); 
-    //function success(stream) {
-    	 
-    //    $("#myVideo").attr("src", window.webkitURL.createObjectURL(stream));
-    //}
-	//function shoot() { 
-    //    var video = $("#myVideo")[0];
-    //    var canvas = capture(video); 
-    //    $("#result").empty();
-    //    $("#result").append(canvas); 
-    //    var imgData = canvas.toDataURL("image/jpg");
-    //    var base64String = imgData.substr(22); 
-    //}
-	//function capture(video) {
-	//	 
-    //     var canvas = document.createElement('canvas'); //����canvas js DOMԪ��
-    //     canvas.width = video.videoWidth;
-    //     canvas.height = video.videoHeight;
-    //     var ctx = canvas.getContext('2d');
-    //     ctx.drawImage(video, 0, 0);
-    //     return canvas;
-    // }
-	function loginAction(){  
-		var module ='88f6ae182d92151ed240e0c7f51136144609dd5ced49f28171ef33af1e3b1d64c7b5939bc0b12e22f3a046168f8890371555e933a2a5714f7b3a858946eea17f';
-		var empoent= '10001';  
-		var username = $("#txtusername").val();
-		if (username == "") {
-			alert("请输入用户名！");
-			return;
-		}
-		var password = $("#txtpassword").val();
-		if (password == "") {
-			alert("请输入登录密码！");
-			return;
-		}
-		setMaxDigits(131); //131 => n的十六进制位数/2+3  
-		var key  = new RSAKeyPair(empoent, '', module); //10001 => e的十六进制  
-    	var newpassword = encryptedString(key, password);
-		 
-		var User = {};
-		User.name = username;
-		User.psd = newpassword;
-		$.ajax({
-			url : "../Login/userLogin.do",
-			type : "POST",
-			dataType : "json",
-			async : false,
-			data : User,
-			// contentType: "application/x-www-form-urlencoded; charset=utf-8",
-			success : function(req) { 
-				if(req){
-					if(req.isSuceed){
-						window.location.href="#masterpage";
-					}else{
-						alert(req.message);
-					}
-				}else{
-					alert("登录失败");
-				}
-			}
-		});
-	} 
-</script>
+<script src="scripts/jquery.mobile-1.4.3.min.js"></script>
+<script src="scripts/RSA.js" type="text/javascript"></script>
+<script src="scripts/Barrett.js" type="text/javascript"></script>
+<script src="scripts/BigInt.js" type="text/javascript"></script> 
+<script src="scripts/json2.js" type="text/javascript"></script> 
 <style>
 .ui-block-a, 
 .ui-block-b, 
@@ -257,14 +29,13 @@
 background-color: lightgray; 
 height: 40px;
 font-weight: bold; 
-}	
-
+}	 
 video { transform: scaleX(-1); }
 </style>
 </head>
 <body>
 	<!-- 登录页面  -->
-	<div data-role="page" data-transition="slide" data-theme="b" id="login">
+	<div data-role="page" data-transition="slide" data-theme="a" id="login">
 		<div data-role="header" data-position="fixed"></div>
 
 		<div data-role="content">
@@ -294,14 +65,14 @@ video { transform: scaleX(-1); }
 			</div>
 		</div>
 
-		<div data-role="footer"  data-theme="b" data-position="fixed">
+		<div data-role="footer"  data-theme="a" data-position="fixed">
 
 			<p align="center">成都星云软件工作室</p>
 		</div>
 
 	</div>
 	<!-- 注册页面   -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="register" data-theme="b" >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="register" data-theme="a" >
 		<div data-role="header" ></div>
 
 		<div data-role="content">
@@ -327,24 +98,24 @@ video { transform: scaleX(-1); }
 			</div>
 		</div>
 
-		<div data-role="footer" data-theme="b"  data-position="fixed">
+		<div data-role="footer" data-theme="a"  data-position="fixed">
 
 			<p align="center">成都星云软件工作室</p>
 		</div>
 	</div>
 	<!-- 首页 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="masterpage" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="masterpage" data-theme="a">
 		<div data-role="header" data-theme="b" data-position="fixed">
 			<!--<a href="#masterpage" data-transition="slide" data-role="button" data-corners="false" data-icon="grid" data-inline="true" data-mini="true">个人</a> -->
-			<h1>首页</h1> 
+			<h4>首页</h4> 
 			<!--<a href="#masterpage" data-transition="slide" class="ui-btn-right" data-corners="false" data-role="button" data-inline="true" data-mini="true"
 				data-icon="grid">团队</a> -->
 				
 		</div> 
-		<div data-role="content"  data-theme="b" > 
+		<div data-role="content"  data-theme="a" > 
 				<div data-theme="d" align="left"><label>当前所属组织：</label><label>销售部</label></div>
 			<div data-role="collapsible" data-collapsed="false">
-				<h1>今日工作统计明细</h1>
+				<h4>今日工作统计明细</h4>
 				<div class="ui-grid-b" data-theme="b">
 					<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>部门</span></div>
 		     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>总分值</span></div>
@@ -369,7 +140,7 @@ video { transform: scaleX(-1); }
 				</div> 
 			</div>  
 			<div data-role="collapsible" data-collapsed="false">
-				<h1>本周工作统计明细</h1>
+				<h4>本周工作统计明细</h4>
 				<div class="ui-grid-b" data-theme="b">
 					<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>部门</span></div>
 		     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>总分值</span></div>
@@ -394,7 +165,7 @@ video { transform: scaleX(-1); }
 				</div> 
 			</div>
 			<div data-role="collapsible" data-collapsed="false">
-				<h1>本月工作统计明细</h1>
+				<h4>本月工作统计明细</h4>
 				<div class="ui-grid-b" data-theme="b">
 					<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>部门</span></div>
 		     		<div class="ui-block-b"  data-theme="b"  style="border: 0px; text-align:center;"><span>总分值</span></div>
@@ -432,14 +203,14 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 单个部门统计信息详细 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="deptstatistic" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="deptstatistic" data-theme="a">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="back"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
-			<h1>部门工作记录统计明细</h1> 
+			<h4>部门工作记录统计明细</h4> 
 			<!-- <a href="#" class="ui-btn-right" data-role="button" data-corners="false" data-iconpos="notext" id="btnSaveNewTask"
 				data-icon="check" data-shadow="false">保存</a>   -->
 		</div>	
-		<div data-role="content"  data-theme="b" >
+		<div data-role="content"  data-theme="a" >
 			<div data-theme="d"  align="left"><label>当前位置：</label><label>销售一部</label></div>
 			<div class="ui-grid-b" data-theme="b">
 				<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>人员</span></div>
@@ -469,14 +240,14 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 单个销售员统计信息详细 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="personstatistic" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="personstatistic" data-theme="a">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#deptstatistic" data-transition="slide" data-icon="back" data-corners="false"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
-			<h1>个人工作记录统计明细</h1> 
+			<h4>个人工作记录统计明细</h4> 
 			<!-- <a href="#" class="ui-btn-right" data-role="button" data-iconpos="notext" id="btnSaveNewTask"
 				data-icon="check" data-shadow="false">保存</a>   -->
 		</div> 
-		<div data-role="content"  data-theme="b" >
+		<div data-role="content"  data-theme="a" >
 			<div data-theme="d"  align="left"><label>当前位置：</label><label>张三工作记录详细</label></div>
 			<div class="ui-grid-b" data-theme="b">
 				<div class="ui-block-a"  data-theme="b"  style="border: 0px; text-align:center;"><span>业务类别</span></div>
@@ -526,15 +297,15 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 日历   -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="calendar" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="calendar" data-theme="a">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home"data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
-			<h1>2014-09</h1> 
+			<h4>2014-09</h4> 
 			<!-- a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
 				data-icon="gear" data-inline="true" data-mini="true">设置</a> -->
 		</div> 
-		<div data-role="content" data-theme="b" > 
-			<ul data-role="listview"  data-theme="d" > 
+		<div data-role="content" data-theme="a" > 
+			<ul data-role="listview"  data-theme="a" > 
 				<li>  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3 name="daysdetail" style="color:green">2014-09-01</h3></td><td></td></tr> 
@@ -694,18 +465,17 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 上一个月日历 -->
-	<div data-role="page" data-transition="slide" data-add-back-btn="true" data-back-btn-text="返回"
-		id="lmonth"  data-theme="b" >
+	<div data-role="page" data-transition="slide" data-add-back-btn="true" data-back-btn-text="返回" id="lmonth"  data-theme="a" >
 		<div data-role="header" data-position="fixed" data-theme="b" >
 		<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			
-			<h1>2014-08</h1>
+			<h4>2014-08</h4>
 			<!--<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
 				data-icon="gear">设置</a>-->
 		</div>
 
-		<div data-role="content" data-theme="b" >
-		<ul data-role="listview"  data-theme="d" > 
+		<div data-role="content" data-theme="a" >
+		<ul data-role="listview"  data-theme="a" > 
 				<li>  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3 name="daysdetail" style="color:green">2014-08-01</h3></td><td></td></tr> 
@@ -764,17 +534,17 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 下一个月日历 -->
-	<div data-role="page" data-transition="slide" data-add-back-btn="true" data-back-btn-text="返回" data-theme="b" 
+	<div data-role="page" data-transition="slide" data-add-back-btn="true" data-back-btn-text="返回" data-theme="a" 
 		id="nmonth">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-role="button" data-icon="home" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
-			<h1>2014-10</h1>
+			<h4>2014-10</h4>
 			<!--<a href="#login" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
 				data-icon="gear">设置</a>-->
 		</div>
 
-		<div data-role="content" data-theme="b" >
-			<ul data-role="listview"  data-theme="d" > 
+		<div data-role="content" data-theme="a" >
+			<ul data-role="listview"  data-theme="a" > 
 				<li>  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3 name="daysdetail" style="color:green">2014-10-09</h3></td><td></td></tr> 
@@ -832,15 +602,15 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 昨天工作页面 -->
-	<div data-role="page" data-transition="slide" data-quto-back-btn="true" id="yesterday" data-theme="b">
+	<div data-role="page" data-transition="slide" data-quto-back-btn="true" id="yesterday" data-theme="a">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
-			<h1>2014-9-10，星期三</h1>
-			<a href="#newrecord" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button" data-iconpos="notext"
+			<h4>2014-9-10,星期三</h4>
+			<a id="yNewRecord" href="#" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button" data-iconpos="notext"
 				data-icon="plus">新增工作记录</a> 
 		</div>
-		<div data-role="content" data-theme="b" >
-			<ul data-role="listview"  data-theme="d" >
+		<div data-role="content" data-theme="a" >
+			<ul data-role="listview"  data-theme="a" >
 				<li name="recorddetail">  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3>上午10:00</h3></td><td>已完成</td></tr> 
@@ -896,16 +666,16 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 今日工作页面 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="today" data-theme="b"  >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="today" data-theme="a"  >
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Home</a>
-			<h1>2014-9-11,星期四</h1>
+			<h4>2014-9-11,星期四</h4>
 			<a href="#newrecord" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button" data-iconpos="notext" data-shadow="false"
 				data-icon="plus">新增工作记录</a>  
 		</div>
 
-		<div data-theme="b"  data-role="content">
-			<ul data-role="listview"  data-theme="d" > 
+		<div data-theme="a"  data-role="content">
+			<ul data-role="listview"  data-theme="a" > 
 				<li name="recorddetail">  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3>上午10:00</h3></td><td>已完成</td></tr> 
@@ -962,7 +732,7 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 第二天 工作页面-->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="total" data-theme="b" >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="total" data-theme="a" >
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Home</a>
 			<h1>2014-9-12,星期五</h1>
@@ -970,8 +740,8 @@ video { transform: scaleX(-1); }
 				data-icon="plus" data-shadow="false">新增工作记录</a>  
 		</div>
 
-		<div data-theme="b"  data-role="content">
-			<ul data-role="listview"  data-theme="d" >
+		<div data-theme="a"  data-role="content">
+			<ul data-role="listview"  data-theme="a" >
 				<li name="recorddetail">  
 					 <table style="width:100%; text-align:left">
 						 <tr><td><h3>上午10:00</h3></td><td><span style="color:red">未完成</span></td></tr> 
@@ -1028,14 +798,14 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 新增工作记录页面 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="newrecord" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="newrecord" data-theme="a">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#today" data-transition="slide" data-icon="back" data-corners="false"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
-			<h1>新增工作记录</h1>
-			<!-- <a href="#" data-transition="slide" class="ui-btn-right" data-role="button" data-iconpos="notext" id="btnSaveNewTask"
-				data-icon="check" data-shadow="false">保存</a>   -->
+			 <h1>新增工作记录</h1>
+			<!-- <img name="getlocationphoto" alt="图片获取" src="css/images/camera.png">  --> 
+  <a name="getlocationphoto" style="background:url(css/images/camera.png) no-repeat;display:block;width:32px;height:42px;"></a>
 		</div>
-		<div data-role="content" data-theme="b" >  
+		<div data-role="content" data-theme="a" >  
 			<table style="width:100%">
 				<tr>
 					<td style="width:50px"><label for="txtCustomerName">名称:</label></td>
@@ -1070,7 +840,7 @@ video { transform: scaleX(-1); }
 				</tr>
 				<tr>
 					<td><label for="txtTaskDescription">内容:</label> </td>
-					<td colspan="2"><textarea cols="4" rows="8" id="txtTaskDescription" name="textarea" ></textarea></td>
+					<td colspan="2"><textarea cols="5" rows="10" style="height:50px" id="txtTaskDescription" name="textarea" ></textarea></td>
 				</tr>
 				<tr>
 					<td><label for="txtTaskTime">时间:</label></td>
@@ -1080,11 +850,19 @@ video { transform: scaleX(-1); }
 					<td>
 						<label for="txtCustomerphoto">照片:</label> 
 					</td>
-					<td><input  name="txtCustomerphoto"  id="txtCustomerphoto"  type="text"   placeholder="" value="" data-clear-btn="true"  /></td>
-					<td><img name="getlocationphoto" alt="图片获取" src="css/images/photo.png"></td>			
+					<td colspan="2">
+						<div> 
+							 <img name="selaryPic" alt="获取地址" src="css/images/1-1.png"> 
+							 <img name="selaryPic" alt="获取地址" src="css/images/2-1.png"> 
+							 <img name="selaryPic" alt="获取地址" src="css/images/3-1.png"> 
+							 <img name="selaryPic" alt="获取地址" src="css/images/3-1.png"> 
+									
+						</div>
+						 <!-- input  name="txtCustomerphoto"  id="txtCustomerphoto"  type="text"   placeholder="" value="" data-clear-btn="true"  />-->
+					</td> 		
 				</tr> 
 				<tr>
-					<td colspan="3"><a href="#taskconfirmdia" id="btnSaveTask" data-corners="false"  data-theme="a"  data-role="button">保存</a></td> 				
+					<td colspan="3"><a href="#taskconfirmdia" id="btnSaveTask" data-corners="false"  data-theme="b"  data-role="button">保存</a></td> 				
 				</tr> 
 			</table>   
 		</div>
@@ -1093,33 +871,27 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 拍照页面 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="photopage" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="photopage" data-theme="a">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#newrecord" data-transition="slide" data-corners="false" data-role="button" data-icon="back" data-iconpos="notext" data-inline="true" data-mini="true">back</a>
 			<h1>图片资源</h1> 
-			<a href="#newrecord" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
-				data-icon="check" data-inline="true" data-mini="true">上传</a> 
+			 <!-- <a href="#newrecord" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button"
+				data-icon="check" data-inline="true" data-mini="true">上传</a>  -->
 		</div> 
-		<div data-role="content" data-theme="b" > 
+		<div data-role="content" data-theme="a" > 
 			 <div>
-				 <video id="video" style="width:320px;height:240px" autoplay></video> 
-				 <a id="snap" href="#"  data-corners="false"   data-theme="b"  data-role="button">拍照</a>       
-			     <canvas id="canvas" style="width:320px;height:240px"  ></canvas>
-				 <a href="#"  data-corners="false"   data-theme="b"  data-role="button">上传</a>  
-			 </div>
-			 <!-- <video id="myVideo" autoplay="autoplay"></video>
-   			 <br />
-    		 <input type="button" id="takephoto" onclick="shoot()" value="photo" /><br />
-			 <label>拍照结果</label>
-		     <div id="result">
-    		 </div> -->
+				 <video id="video" style="width:100%;height:100%" autoplay></video>       
+			     <canvas id="canvas" style="width:100%;height:100%"  ></canvas> 
+				 <a id="snap" href="#"  data-corners="false"   data-theme="b"  data-role="button">拍照</a> 
+				 <a id="snapsubmit" href="#"  data-corners="false"   data-theme="a"  data-role="button">上传</a> 
+			 </div> 
 		</div>
 		<div data-role="footer" data-position="fixed" data-theme="b" > 
 			<p align="center">成都星云软件工作室</p>
 		</div>
 	</div>
 	<!-- 工作日志统计页面-->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="statistic" data-theme="b" >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="statistic" data-theme="a" >
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false"  data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>今日工作日志统计</h1>
@@ -1127,7 +899,7 @@ video { transform: scaleX(-1); }
 				data-icon="gear">设置</a> 
 		</div>
 
-		<div data-role="content" data-theme="b" >
+		<div data-role="content" data-theme="a" >
 			 
 		</div>
 
@@ -1144,7 +916,7 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 本周工作统计页面 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="TWeek" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="TWeek" data-theme="a">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage"  data-transition="slide" data-corners="false" data-icon="home"   data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>本周工作日志统计</h1>
@@ -1152,7 +924,7 @@ video { transform: scaleX(-1); }
 				data-icon="gear">设置</a> 
 		</div>
 
-		<div data-role="content" data-theme="b" >
+		<div data-role="content" data-theme="a" >
 			 
 		</div>
 
@@ -1169,7 +941,7 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 本月工作统计页面-->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="TMonth" data-theme="b" >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="TMonth" data-theme="a" >
 		<div data-role="header"  data-theme="b" data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home" data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>本月工作日志统计</h1>
@@ -1177,7 +949,7 @@ video { transform: scaleX(-1); }
 				data-icon="gear">设置</a> 
 		</div>
 
-		<div data-role="content" data-theme="b" >
+		<div data-role="content" data-theme="a" >
 			 <table>
 			 	<tr>
 			 		<td>ss</td>
@@ -1209,13 +981,13 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 系统设置页面 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="setting" data-theme="b" >
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="setting" data-theme="a" >
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>系统设置</h1> 
 		</div>
 
-		<div data-role="content" data-theme="b" >
+		<div data-role="content" data-theme="a" >
 			 <table style="width:100%">
 			 	<tr>
 			 		<td style="width:80px"><label for="fullname">全名：</label></td>
@@ -1242,7 +1014,7 @@ video { transform: scaleX(-1); }
 			 		<td><input type="search" name="orgname" id="orgname" placeholder="您选择您所属的公司单位.."></td>
 			 	</tr>
 			 	<tr>
-			 		<td colspan="2"><a href="#" data-corners="false"  data-theme="a"  data-role="button">保存</a></td>	
+			 		<td colspan="2"><a href="#" data-corners="false"  data-theme="b"  data-role="button">保存</a></td>	
 		 		</tr>
 			 </table> 
 		</div>
@@ -1260,15 +1032,15 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 客户资料管理 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="customer" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="customer" data-theme="a">
 		<div data-role="header" data-position="fixed" data-theme="b" >
 			<a href="#masterpage" data-transition="slide" data-corners="false" data-icon="home"  data-role="button" data-iconpos="notext" data-inline="true" data-mini="true">Home</a>
 			<h1>客户管理</h1>
 			<a href="#newcustomer" data-transition="slide" data-corners="false" class="ui-btn-right" data-role="button" data-iconpos="notext"
 				data-icon="plus">新增客户资料</a> 
 		</div>
-		<div data-role="content" data-theme="b" >
-			  <ul data-role="listview" data-autodividers="true" data-inset="true" data-theme="d" >
+		<div data-role="content" data-theme="a" >
+			  <ul data-role="listview"  data-theme="a" >
 				    <li><a href="#newcustomer" data-transition="slide">李四</a></li>
 				    <li><a href="#newcustomer" data-transition="slide">李武</a></li>
 				    <li><a href="#newcustomer" data-transition="slide">李强</a></li>
@@ -1298,14 +1070,14 @@ video { transform: scaleX(-1); }
 		</div>
 	</div>
 	<!-- 客户详细资料 -->
-	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="newcustomer" data-theme="b">
+	<div data-role="page" data-transition="slide" data-auto-back-btn="true" id="newcustomer" data-theme="a">
 		<div data-role="header" data-theme="b"  data-position="fixed">
 			<a href="#customer" data-transition="slide" data-icon="back" data-corners="false"   data-role="button" data-iconpos="notext" data-inline="true" data-mini="true" data-shadow="false">Back</a>
 			<h1>客户详细资料</h1>
 			<!-- <a href="#" data-transition="slide" class="ui-btn-right" data-role="button" data-iconpos="notext" id="btnSaveNewTask"
 				data-icon="check" data-shadow="false">保存</a>   -->
 		</div>
-		<div data-role="content" data-theme="b" > 
+		<div data-role="content" data-theme="a" > 
 			<table style="width:100%">
 				<tr>
 					<td style="width:75px"><label>客户名称:</label></td>
@@ -1328,13 +1100,32 @@ video { transform: scaleX(-1); }
 					<td><textarea cols="4" rows="4" id="txtTaskDescription" name="textarea" ></textarea></td>
 				</tr>
 				<tr>
-					<td colspan="2"><a href="#"  data-corners="false"   data-theme="a"  data-role="button">保存</a></td> 				
+					<td colspan="2"><a href="#"  data-corners="false"   data-theme="b"  data-role="button">保存</a></td> 				
 				</tr> 
 			</table>   
 		</div>
 		<div data-role="footer" data-theme="b"  data-position="fixed"> 
 			<p align="center">成都星云软件工作室</p>
 		</div>
+	</div>
+	<!-- 触控图片时触发 -->
+	<div data-role="dialog" id="confirm-dialogpic"> 
+    	<!-- 页眉部分start -->
+    	<div data-role="header">
+       		<h1>图片预览</h1>
+    	</div>
+   		 <!-- 页眉部分end -->
+    
+   		 <!-- content部分start -->
+	    <div data-role="content" data-theme="a" >  
+	    	<table style="width:100%">
+	    		<tr><td><img name="photocat" alt="图片获取" src="css/images/1.jpg"></td></tr>
+	    		<tr><td><a href="#newrecord"  data-corners="false"   data-theme="b"  data-role="button">删除</a></td>
+	    		<!-- <td><a href="#newrecord"  data-corners="false"   data-theme="b"  data-role="button">关闭</a> </td>--></tr>
+	    	</table> 
+	    </div>
+    	<!-- content部分end -->
+	
 	</div>
 	<!-- 在记录页面，长时间触控数据时候，弹出对话框设置 -->
 	<div data-role="dialog" id="confirm-dialog">
@@ -1346,8 +1137,8 @@ video { transform: scaleX(-1); }
    		 <!-- 页眉部分end -->
     
    		 <!-- content部分start -->
-	    <div data-role="content" data-theme="b" > 
-	    	<a href="#deletedialog"  data-corners="false"   data-theme="b"  data-role="button">删除</a>
+	    <div data-role="content" data-theme="a" > 
+	    	<a href="#deletedialog"  data-corners="false"   data-theme="a"  data-role="button">删除</a>
 	    	<a href="#newrecord"  data-corners="false"   data-theme="b"  data-role="button">编辑</a> 
 	    </div>
     	<!-- content部分end -->
@@ -1363,10 +1154,10 @@ video { transform: scaleX(-1); }
    		 <!-- 页眉部分end -->
     
    		 <!-- content部分start -->
-	    <div data-role="content" data-theme="b" > 
+	    <div data-role="content" data-theme="a" > 
 	    	<h2>该客户资料为收集，是否保存客户资料？</h2>
 	    	<table style="width:100%">
-	    		<tr><td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">是</a></td>
+	    		<tr><td><a href="#today"  data-corners="false"   data-theme="a"  data-role="button">是</a></td>
 	    		<td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">否</a> </td></tr>
 	    	</table> 
 	    </div>
@@ -1383,10 +1174,10 @@ video { transform: scaleX(-1); }
    		 <!-- 页眉部分end -->
     
    		 <!-- content部分start -->
-	    <div data-role="content" data-theme="b" > 
+	    <div data-role="content" data-theme="a" > 
 	    	<h2>确认删除该条记录？</h2>
 	    	<table style="width:100%">
-	    		<tr><td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">确定</a></td>
+	    		<tr><td><a href="#today"  data-corners="false"   data-theme="a"  data-role="button">确定</a></td>
 	    		<td><a href="#today"  data-corners="false"   data-theme="b"  data-role="button">取消</a> </td></tr>
 	    	</table> 
 	    </div>

@@ -123,3 +123,8 @@ fieldset {
  .rem.selected{
 	background-position: 0 0;
 }
+
+.displaynone{
+	display:none;
+}
+.ui-mobile img {max-width: 100%;}
